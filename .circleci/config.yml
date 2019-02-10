@@ -40,8 +40,4 @@ jobs:
       # run tests!
       - run: mvn integration-test
 
-      - run: mvn sonar:sonar \
-          -Dsonar.projectKey=sfg-beer-works_sfg-beer-works \
-          -Dsonar.organization=sfg-beer-works \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=c8ba5345c3cfa77e813c8b5415e6dc96f46b34e9
+      - run: mvn sonar:sonar -Dsonar.projectKey=sfg-beer-works_sfg-beer-works -Dsonar.organization=sfg-beer-works -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c8ba5345c3cfa77e813c8b5415e6dc96f46b34e9
