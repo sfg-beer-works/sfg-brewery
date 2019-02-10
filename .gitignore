@@ -69,7 +69,9 @@ local.properties
 ######################
 /log/
 /target/
-
+/brewery/target/
+/distributor/target/
+/pub/target/
 ######################
 # Gradle
 ######################
@@ -140,3 +142,4 @@ Desktop.ini
 ######################
 .eslintcache
 /.idea/
+

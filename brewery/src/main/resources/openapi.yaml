@@ -1,11 +1,29 @@
 openapi: "3.0.1"
 info:
-    version: 1.0
+    version: "1.0"
     title: SFG Brewery API
+    license:
+        name: GNU GPLv3
+        url: https://www.gnu.org/licenses/gpl.txt
+    contact:
+        name: John Thompson
+        url: https://springframework.guru
+servers:
+    -   url: http://localhost:8080
+        description: Local Host
+tags:
+    -   name: Beer
+        description: Beer Operations
+    -   name: Customer
+        description: Customer Operations
+    -   name: Order
+        description: Order Operations
 paths:
     /api/v1/beer:
         get:
             description: List Beers
+            tags:
+                - Beer
             responses:
                 '200':
                     description: List Beers Response
@@ -14,125 +32,359 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/beer'
+                                    $ref: '#/components/schemas/Beer'
     /api/v1/beer/{beerId}:
+        parameters:
+            -   $ref: "#/components/parameters/BeerId"
         get:
             description: Get Beer by Id
+            tags:
+                - Beer
             responses:
                 '200':
                     description: List Beers Response
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/beer'
-    /api/v1/customers/new:
+                                $ref: '#/components/schemas/Beer'
+                '404':
+                    description: Not Found
+    /api/v1/customers:
         post:
             description: Register as new customer
+            tags:
+                - Customer
             requestBody:
                 required: false
                 content:
                     application/json:
                         schema:
-                        ## todo
+                            $ref: "#/components/schemas/Customer"
             responses:
-                '200':
-                    description: HTTP Okay
-                    content:
-                        application/json:
+                '201':
+                    description: Customer Created
+                    headers:
+                        Location:
+                            description: Reference to created customer
                             schema:
-                            ## todo
-    /api/customers/{customerId}:
+                                type: string
+                                format: uri                      
+                '400':
+                    description: Bad Request
+    /api/v1/customers/{customerId}:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
         get:
             description: Get customer by Id
+            tags:
+                - Customer
             responses:
                 '200':
                     description: HTTP Okay
                     content:
                         application/json:
                             schema:
-                                ## todo
+                                $ref: "#/components/schemas/Customer"
+                '404':
+                    description: Not Found
+    /api/v1/customers/{customerId}/creditcard:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+        get:
+            description: List Customer's Credit Cards
+            tags:
+                - Customer
+            responses:
+                '200':
+                    description: List Credit Card Reponse
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/CreditCard"
+    /api/v1/customers/{customerId}/creditcard/:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+            -   $ref: "#/components/parameters/CreditCardId"
+        post:
+            description: Create New Credit Card
+            tags:
+                - Customer
+            responses:
+                '201':
+                    description: Credit Card Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CreditCard"
+                    headers:
+                        Location:
+                            description: Reference to created credit card
+                            schema:
+                                type: string
+                                format: uri        
+                '400':
+                    description: Bad Request
+    /api/v1/customers/{customerId}/creditcard/{creditCardId}:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+            -   $ref: "#/components/parameters/CreditCardId"
+        put:
+            description: Create Credit Card
+            tags:
+                - Customer
+            responses:
+                '201':
+                    description: Credit Card Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CreditCard"
+                '400':
+                    description: Bad Request
+                '404':
+                    description: Customer id or credit card id not found
+        delete:
+            description: Delete Credit Card
+            tags:
+                - Customer
+            responses:
+                '200':
+                    description: Credit Card Updated
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CreditCard"
+                '400':
+                    description: Bad Request
+                '404':
+                    description: Customer id or credit card id not found
     /api/v1/customers/{customerId}/order:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+        get:
+            description: List Orders
+            tags:
+                - Order
+            responses:
+                '200':
+                    description: List Order Reponse
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/BeerOrder"
         post:
             description: Place Order
+            tags:
+                - Order
             requestBody:
                 required: false
                 content:
                     application/json:
                         schema:
-                           ## todo
+                            $ref: "#/components/schemas/BeerOrder"
             responses:
-                '200':
-                    description: HTTP Okay
-                    content:
-                        application/json:
+                '201':
+                    description: Order Created
+                    headers:
+                        Location:
+                            description: Reference to created Order
                             schema:
-                             ## todo
-    /api/v1/customers/{customerId}/order/pickup:
+                                type: string
+                                format: uri                      
+                '404':
+                    description: Not Found
+            callbacks:
+                orderStatusChange:
+                    '{$request.body#/orderStatusCallback}':
+                        post:
+                            requestBody:
+                                $ref: '#/components/requestBodies/OrderStatusCallback'
+                            responses:
+                                '200':
+                                    description: Okay
+    /api/v1/customers/{customerId}/order/{orderId}/pickup:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+            -   $ref: "#/components/parameters/OrderId"
         post:
             description: Pickup Order
-            requestBody:
-                required: false
-                content:
-                    application/json:
-                        schema:
-                        ## todo
+            tags:
+                - Order
             responses:
                 '200':
                     description: HTTP Okay
-                    content:
-                        application/json:
-                            schema:
-                            ## todo
-                ## todo add callback
+                '404':
+                    description: Customer Id or Order Id Not Found
 components:
+    parameters:
+        BeerId:
+            name: beerId
+            in: path
+            description: Beer Id
+            required: true
+            schema:
+                type: string
+                format: uuid
+        CreditCardId:
+            name: creditCardId
+            in: path
+            description: Credit Card Id
+            required: true
+            schema:
+                type: string
+                format: uuid
+        CustomerId:
+            name: customerId
+            in: path
+            description: Customer Id
+            required: true
+            schema:
+                type: string
+                format: uuid
+        OrderId:
+            name: orderId
+            in: path
+            description: Order Id
+            required: true
+            schema:
+                type: string
+                format: uuid
     schemas:
-        beer:
+        BaseItem:
             type: object
             properties:
                 id:
                     type: string
                     format: uuid
-                name:
+                    readOnly: true
+                version:
+                    type: integer
+                createdDate:
                     type: string
-                style:
+                    format: date-time
+                lastModifiedDate:
                     type: string
+                    format: date-time
+        Beer:
+            type: object
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
+            required:
+                - name
+                - style
+                - quanityOnHand
+                - price
+            properties:
+                beerStyle:
+                    type: string
+                    enum:
+                        - LAGER
+                        - PILSNER
+                        - STOUT
+                        - GOSE
+                        - PORTER
+                        - ALE
+                        - WHEAT
+                        - IPA
+                        - PALE_ALE
+                        - SAISON
                 quanityOnHand:
                     type: integer
                 price:
                     type: string
                     format: decimal
-
-        beerOrder:
+        BeerOrder:
             type: object
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
             properties:
-                id:
-                    type: string
-                    format: uuid
                 customerId:
                     type: string
+                    format: uuid
                 beerOrderLines:
                     type: array
                     items:
-                        $ref: '#/components/schemas/beerOrderLine'
+                        $ref: '#/components/schemas/BeerOrderLine'
                 orderStatus:
+                    $ref: "#/components/schemas/OrderStatusEnum"
+                orderStatusCallbackUrl:
                     type: string
-                    enum:
-                        - NEW
-                        - READY
-                        - PICKED_UP
-        beerOrderLine:
+                    format: uri
+        BeerOrderLine:
             type: object
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
             properties:
-                id:
-                    type: string
-                    format: uuid
                 beerId:
                     type: string
                     format: uuid
-        customer:
+                quantity:
+                    type: integer
+                    minimum: 1
+                    maximum: 999
+        CreditCard:
             type: object
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
+            required:
+                - cardNumber
+                - expirationDate
+                - primary
             properties:
-                id:
+                cardNumber:
+                    type: integer
+                expirationDate:
+                    type: string
+                    format: date
+                primary:
+                    type: boolean
+                    default: true
+                    description: Only One card can be set as primary
+        Customer:
+            type: object
+            required:
+                - name
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
+            properties:
+                name:
+                    type: string
+                    maxLength: 255
+                    minLength: 1
+                creditCards:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CreditCard"
+        OrderStatusEnum:
+            type: string
+            enum:
+                - NEW
+                - READY
+                - PICKED_UP
+        OrderStatusUpdate:
+            type: object
+            allOf:
+                -   $ref: "#/components/schemas/BaseItem"
+            properties:
+                orderId:
                     type: string
                     format: uuid
-
+                orderStatus:
+                    $ref: "#/components/schemas/OrderStatusEnum"
+    requestBodies:
+        OrderStatusCallback:
+            description: Order Status Update
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            orderId:
+                                type: string
+                                format: uuid
+                            orderStatus:
+                                $ref: "#/components/schemas/OrderStatusUpdate"
