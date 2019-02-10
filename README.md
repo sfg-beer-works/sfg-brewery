@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sfg-beer-works/sfg-beer-works.svg?style=svg)](https://circleci.com/gh/sfg-beer-works/sfg-beer-works)
+
 # SFG Beer Works
 SFG Beer works is a Spring Framework application used to demonstrate the interaction of microservices.
 
