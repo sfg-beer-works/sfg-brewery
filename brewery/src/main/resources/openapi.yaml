@@ -48,7 +48,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/Beer'
+                                    $ref: '#/components/schemas/BeerPagedList'
     /api/v1/beer/{beerId}:
         parameters:
             -   $ref: "#/components/parameters/BeerId"
@@ -118,7 +118,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/CreditCard"
+                                    $ref: "#/components/schemas/CreditCardPagedList"
     /api/v1/customers/{customerId}/creditcard/:
         parameters:
             -   $ref: "#/components/parameters/CustomerId"
@@ -191,7 +191,7 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/BeerOrder"
+                                    $ref: "#/components/schemas/BeerOrderPagedList"
         post:
             description: Place Order
             tags:
@@ -313,6 +313,15 @@ components:
                 price:
                     type: string
                     format: decimal
+        BeerPagedList:
+            type: object
+            allOf:
+                - $ref: "#/components/schemas/PagedResponse"  
+            properties:
+                content:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Beer"              
         BeerOrder:
             type: object
             allOf:
@@ -330,6 +339,15 @@ components:
                 orderStatusCallbackUrl:
                     type: string
                     format: uri
+        BeerOrderPagedList:
+            type: object
+            allOf:
+                - $ref: "#/components/schemas/PagedResponse"  
+            properties:
+                content:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/BeerOrder"                       
         BeerOrderLine:
             type: object
             allOf:
@@ -364,6 +382,15 @@ components:
                     type: boolean
                     default: true
                     description: Only One card can be set as primary
+        CreditCardPagedList:
+            type: object
+            allOf:
+                - $ref: "#/components/schemas/PagedResponse"  
+            properties:
+                content:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CreditCard"                      
         Customer:
             type: object
             required:
@@ -379,6 +406,21 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/CreditCard"
+        PagedResponse:
+            type: object
+            properties:
+                number:
+                    type: integer
+                    format: int32
+                numberOfElements:
+                    type: integer
+                    format: int32
+                totalPages:
+                    type: integer
+                    format: int32
+                size:
+                    type: integer
+                    format: int32                
         OrderStatusEnum:
             type: string
             enum:
