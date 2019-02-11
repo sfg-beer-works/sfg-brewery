@@ -30,7 +30,8 @@ import java.util.UUID;
 public class CreditCard extends BaseItem {
 
     @Builder
-    public CreditCard(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public CreditCard(UUID id, Integer version, OffsetDateTime createdDate,
+                      OffsetDateTime lastModifiedDate) {
         super(id, version, createdDate, lastModifiedDate);
     }
 

@@ -30,8 +30,13 @@ import java.util.UUID;
 public class Beer extends BaseItem {
 
     @Builder
-    public Beer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public Beer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String beerName,
+                BeerStyleEnum beerStyle, Integer quantityOnHand, BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.quantityOnHand = quantityOnHand;
+        this.price = price;
     }
 
     private String beerName;

@@ -30,8 +30,11 @@ import java.util.UUID;
 public class Customer extends BaseItem {
 
     @Builder
-    public Customer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public Customer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name,
+                    List<CreditCard> creditCards) {
         super(id, version, createdDate, lastModifiedDate);
+        this.name = name;
+        this.creditCards = creditCards;
     }
 
     private String name;

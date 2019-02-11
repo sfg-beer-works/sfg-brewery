@@ -30,8 +30,13 @@ import java.util.UUID;
 public class BeerOrder extends BaseItem {
 
     @Builder
-    public BeerOrder(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public BeerOrder(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLine> beerOrderLines,
+                     OrderStatusEnum orderStatus, String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
+        this.customerId = customerId;
+        this.beerOrderLines = beerOrderLines;
+        this.orderStatus = orderStatus;
+        this.orderStatusCallbackUrl = orderStatusCallbackUrl;
     }
 
     private UUID customerId;

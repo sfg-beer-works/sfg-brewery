@@ -29,8 +29,11 @@ import java.util.UUID;
 public class BeerOrderLine extends BaseItem {
 
     @Builder
-    public BeerOrderLine(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public BeerOrderLine(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+                         UUID beerId, Integer orderQuantity) {
         super(id, version, createdDate, lastModifiedDate);
+        this.beerId = beerId;
+        this.orderQuantity = orderQuantity;
     }
 
     private UUID beerId;

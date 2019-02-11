@@ -29,8 +29,11 @@ import java.util.UUID;
 public class OrderStatusUpdate extends BaseItem {
 
     @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
+    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+                             UUID orderId, OrderStatusEnum orderStatus) {
         super(id, version, createdDate, lastModifiedDate);
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
     }
 
     private UUID orderId;
