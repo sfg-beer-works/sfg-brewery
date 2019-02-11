@@ -14,29 +14,21 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package guru.sfg.brewery.model;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-/**
- * Created by jt on 2019-01-26.
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@Entity
-public class Brewery extends BaseEntity {
+import java.util.List;
 
-    @Builder
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
+public class CreditCardPagedList extends PageImpl<CreditCard> {
+
+    public CreditCardPagedList(List<CreditCard> content, Pageable pageable, long total) {
+        super(content, pageable, total);
     }
 
-    private String breweryName;
-
+    public CreditCardPagedList(List<CreditCard> content) {
+        super(content);
+    }
 }

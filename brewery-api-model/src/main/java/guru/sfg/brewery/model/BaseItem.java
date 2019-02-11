@@ -14,29 +14,27 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+package guru.sfg.brewery.model;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 
-/**
- * Created by jt on 2019-01-26.
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@Entity
-public class Brewery extends BaseEntity {
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
-    @Builder
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
-    }
+@AllArgsConstructor
+public class BaseItem {
+    @JsonProperty("id")
+    private UUID id = null;
 
-    private String breweryName;
+    @JsonProperty("version")
+    private Integer version = null;
 
+    @JsonProperty("createdDate")
+    private OffsetDateTime createdDate = null;
+
+    @JsonProperty("lastModifiedDate")
+    private OffsetDateTime lastModifiedDate = null;
 }
+

@@ -25,6 +25,7 @@
         <module>distributor</module>
         <module>brewery</module>
         <module>brewery-jpa</module>
+        <module>brewery-api-model</module>
     </modules>
 
     <parent>

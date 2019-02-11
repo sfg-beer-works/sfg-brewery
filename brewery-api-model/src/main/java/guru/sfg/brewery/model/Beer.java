@@ -14,29 +14,28 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
+
+package guru.sfg.brewery.model;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Entity
-public class Brewery extends BaseEntity {
+public class Beer extends BaseItem {
 
     @Builder
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public Beer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
     }
 
-    private String breweryName;
-
+    private String beerName;
+    private BeerStyleEnum beerStyle;
+    private Integer quantityOnHand;
+    private BigDecimal price;
 }

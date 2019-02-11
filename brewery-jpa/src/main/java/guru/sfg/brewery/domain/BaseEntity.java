@@ -16,6 +16,7 @@
  */
 package guru.sfg.brewery.domain;
 
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -25,6 +26,7 @@ import java.sql.Timestamp;
 /**
  * Created by jt on 2019-01-26.
  */
+@AllArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
     @Id

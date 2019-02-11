@@ -16,11 +16,14 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Set;
 
 /**
@@ -28,11 +31,13 @@ import java.util.Set;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 public class Beer extends BaseEntity {
+
+    @Builder
+    public Beer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+        super(id, version, createdDate, lastModifiedDate);
+    }
 
     private String beerName;
     private String beerStyle;

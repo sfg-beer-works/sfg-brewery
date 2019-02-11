@@ -16,11 +16,14 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,11 +32,13 @@ import java.util.UUID;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 public class Customer extends BaseEntity {
+
+    @Builder
+    public Customer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+        super(id, version, createdDate, lastModifiedDate);
+    }
 
     private String customerName;
 
@@ -43,5 +48,4 @@ public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer")
     private Set<BeerOrder> beerOrders;
 
-    private String orderConfirmationUrl;
 }

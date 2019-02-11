@@ -14,29 +14,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import javax.persistence.Entity;
-import java.sql.Timestamp;
-
-/**
- * Created by jt on 2019-01-26.
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@Entity
-public class Brewery extends BaseEntity {
-
-    @Builder
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
-    }
-
-    private String breweryName;
-
+public enum  OrderStatusEnum {
+    NEW, READY, PICKED_UP
 }

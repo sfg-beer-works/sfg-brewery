@@ -14,6 +14,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package guru.sfg.brewery.domain;
 
 import lombok.Builder;
@@ -22,21 +23,20 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
-/**
- * Created by jt on 2019-01-26.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class Brewery extends BaseEntity {
+public class CreditCard extends BaseEntity {
 
     @Builder
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public CreditCard(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
     }
 
-    private String breweryName;
-
+    private Integer cardNumber;
+    private LocalDate expirationDate;
+    private Integer cvv;
+    private Boolean primary;
 }
