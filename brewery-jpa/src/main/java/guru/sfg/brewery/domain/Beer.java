@@ -16,9 +16,10 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -32,9 +33,21 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 public class Beer extends BaseEntity {
 
-    @Builder
+    public Beer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName, String beerStyle, Integer minOnHand,
+                Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.minOnHand = minOnHand;
+        this.quantityToBrew = quantityToBrew;
+        this.price = price;
+        this.beerInventory = beerInventory;
+    }
+
     public Beer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
         super(id, version, createdDate, lastModifiedDate);
     }

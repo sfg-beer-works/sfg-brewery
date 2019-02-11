@@ -16,7 +16,8 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -26,9 +27,19 @@ import java.sql.Timestamp;
 /**
  * Created by jt on 2019-01-26.
  */
-@AllArgsConstructor
+
+@SuperBuilder
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
+
+    public BaseEntity(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+        this.id = id;
+        this.version = version;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,8 +49,8 @@ public class BaseEntity {
 
     @CreationTimestamp
     @Column(updatable = false)
-    protected Timestamp createdDate;
+    private Timestamp createdDate;
 
     @UpdateTimestamp
-    protected Timestamp lastModifiedDate;
+    private Timestamp lastModifiedDate;
 }
