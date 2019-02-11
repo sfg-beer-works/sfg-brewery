@@ -12,9 +12,9 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-openapi: "3.0.1"
+openapi: "3.0.2"
 info:
-    version: "1.0"
+    version: "1.1"
     title: SFG Brewery API
     license:
         name: GNU GPLv3
@@ -41,6 +41,8 @@ paths:
             parameters:
                 - $ref: '#/components/parameters/Page'  
                 - $ref: '#/components/parameters/PageSize'    
+                - $ref: '#/components/parameters/BeerName'  
+                - $ref: '#/components/parameters/BeerStyle'  
             responses:
                 '200':
                     description: List Beers Response
@@ -246,6 +248,20 @@ components:
             schema:
                 type: string
                 format: uuid
+        BeerName:
+            name: beerName
+            in: query
+            description: Beer Name
+            required: false
+            schema:
+                type: string
+        BeerStyle:
+            name: beerStyle
+            in: query
+            description: Beer Style
+            required: false
+            schema:
+                $ref: '#/components/schemas/BeerStyleEnum'
         CreditCardId:
             name: creditCardId
             in: path
@@ -262,14 +278,7 @@ components:
             schema:
                 type: string
                 format: uuid
-        OrderId:
-            name: orderId
-            in: path
-            description: Order Id
-            required: true
-            schema:
-                type: string
-                format: uuid
+
         Page:
             name: pageNumber
             in: query
@@ -287,7 +296,15 @@ components:
             schema:
                 type: integer
                 format: int32
-                default: 25         
+                default: 25   
+        OrderId:
+            name: orderId
+            in: path
+            description: Order Id
+            required: true
+            schema:
+                type: string
+                format: uuid                      
     schemas:
         BaseItem:
             type: object
@@ -309,24 +326,15 @@ components:
             allOf:
                 -   $ref: "#/components/schemas/BaseItem"
             required:
-                - name
-                - style
+                - beerName
+                - beerStyle
                 - quanityOnHand
                 - price
             properties:
-                beerStyle:
+                beerName:
                     type: string
-                    enum:
-                        - LAGER
-                        - PILSNER
-                        - STOUT
-                        - GOSE
-                        - PORTER
-                        - ALE
-                        - WHEAT
-                        - IPA
-                        - PALE_ALE
-                        - SAISON
+                beerStyle:
+                    $ref: '#/components/schemas/BeerStyleEnum'
                 quanityOnHand:
                     type: integer
                 price:
@@ -379,6 +387,19 @@ components:
                     type: integer
                     minimum: 1
                     maximum: 999
+        BeerStyleEnum:
+            type: string
+            enum:
+                - LAGER
+                - PILSNER
+                - STOUT
+                - GOSE
+                - PORTER
+                - ALE
+                - WHEAT
+                - IPA
+                - PALE_ALE
+                - SAISON            
         CreditCard:
             type: object
             allOf:
