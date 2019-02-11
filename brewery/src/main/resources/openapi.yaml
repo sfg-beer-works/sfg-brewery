@@ -349,6 +349,7 @@ components:
             required:
                 - cardNumber
                 - expirationDate
+                - cvv
                 - primary
             properties:
                 cardNumber:
@@ -356,6 +357,9 @@ components:
                 expirationDate:
                     type: string
                     format: date
+                cvv:
+                    type: integer
+                    maximum: 9999    
                 primary:
                     type: boolean
                     default: true
