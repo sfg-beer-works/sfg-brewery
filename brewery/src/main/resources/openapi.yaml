@@ -328,14 +328,14 @@ components:
             required:
                 - beerName
                 - beerStyle
-                - quanityOnHand
+                - quantityOnHand
                 - price
             properties:
                 beerName:
                     type: string
                 beerStyle:
                     $ref: '#/components/schemas/BeerStyleEnum'
-                quanityOnHand:
+                quantityOnHand:
                     type: integer
                 price:
                     type: string
