@@ -19,8 +19,10 @@ package guru.sfg.brewery.repositories;
 import guru.sfg.brewery.domain.Beer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.UUID;
+
 /**
  * Created by jt on 2019-01-26.
  */
-public interface BeerRepository extends PagingAndSortingRepository<Beer, Long> {
+public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
 }

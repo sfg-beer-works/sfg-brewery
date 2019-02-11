@@ -19,10 +19,13 @@ package guru.sfg.brewery.domain;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
@@ -33,7 +36,7 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public class BaseEntity {
 
-    public BaseEntity(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
         this.id = id;
         this.version = version;
         this.createdDate = createdDate;
@@ -41,8 +44,14 @@ public class BaseEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type="uuid-char")
+    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false )
+    private UUID id;
 
     @Version
     private Long version;

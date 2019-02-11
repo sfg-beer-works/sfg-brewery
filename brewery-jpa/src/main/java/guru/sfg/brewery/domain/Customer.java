@@ -38,7 +38,7 @@ import java.util.UUID;
 @Entity
 public class Customer extends BaseEntity {
 
-    public Customer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
+    public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
                     UUID apiKey, Set<BeerOrder> beerOrders) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;

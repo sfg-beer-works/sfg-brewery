@@ -26,6 +26,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -34,7 +35,7 @@ import java.time.LocalDate;
 @Entity
 public class CreditCard extends BaseEntity {
 
-    public CreditCard(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Integer cardNumber,
+    public CreditCard(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Integer cardNumber,
                       LocalDate expirationDate, Integer cvv, Boolean primary) {
         super(id, version, createdDate, lastModifiedDate);
         this.cardNumber = cardNumber;

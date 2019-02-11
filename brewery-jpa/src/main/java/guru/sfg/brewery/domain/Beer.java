@@ -26,6 +26,7 @@ import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
@@ -37,7 +38,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Beer extends BaseEntity {
 
-    public Beer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName, String beerStyle, Integer minOnHand,
+    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName, String beerStyle, Integer minOnHand,
                 Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;
@@ -46,10 +47,6 @@ public class Beer extends BaseEntity {
         this.quantityToBrew = quantityToBrew;
         this.price = price;
         this.beerInventory = beerInventory;
-    }
-
-    public Beer(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
-        super(id, version, createdDate, lastModifiedDate);
     }
 
     private String beerName;

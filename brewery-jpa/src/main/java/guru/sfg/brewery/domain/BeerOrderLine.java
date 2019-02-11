@@ -24,6 +24,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
@@ -35,7 +36,7 @@ import java.sql.Timestamp;
 @Entity
 public class BeerOrderLine extends BaseEntity {
 
-    public BeerOrderLine(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, BeerOrder beerOrder,
+    public BeerOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, BeerOrder beerOrder,
                          Beer beer, Integer quantity) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerOrder = beerOrder;

@@ -26,6 +26,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
@@ -37,7 +38,7 @@ import java.util.Set;
 @SuperBuilder
 public class BeerOrder extends BaseEntity {
 
-    public BeerOrder(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerRef, Customer customer,
+    public BeerOrder(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerRef, Customer customer,
                      Set<BeerOrderLine> beerOrderLines, OrderStatusEnum orderStatus,
                      String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);

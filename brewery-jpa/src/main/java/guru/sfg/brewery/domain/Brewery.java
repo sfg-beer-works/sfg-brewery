@@ -23,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
@@ -35,7 +36,7 @@ import java.sql.Timestamp;
 public class Brewery extends BaseEntity {
 
 
-    public Brewery(Long id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
         super(id, version, createdDate, lastModifiedDate);
         this.breweryName = breweryName;
     }
