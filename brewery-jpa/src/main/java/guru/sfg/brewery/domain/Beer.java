@@ -16,10 +16,11 @@
  */
 package guru.sfg.brewery.domain;
 
+import guru.sfg.brewery.model.BeerStyleEnum;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -34,11 +35,12 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@SuperBuilder
 @NoArgsConstructor
 public class Beer extends BaseEntity {
 
-    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName, String beerStyle, Integer minOnHand,
+    @Builder
+    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
+                BeerStyleEnum beerStyle, Integer minOnHand,
                 Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;
@@ -50,7 +52,7 @@ public class Beer extends BaseEntity {
     }
 
     private String beerName;
-    private String beerStyle;
+    private BeerStyleEnum beerStyle;
 
     /**
      * Min on hand qty - used to trigger brew

@@ -16,10 +16,10 @@
  */
 package guru.sfg.brewery.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -31,11 +31,11 @@ import java.util.UUID;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
 @NoArgsConstructor
 @Entity
 public class BeerOrderLine extends BaseEntity {
 
+    @Builder
     public BeerOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, BeerOrder beerOrder,
                          Beer beer, Integer quantity) {
         super(id, version, createdDate, lastModifiedDate);

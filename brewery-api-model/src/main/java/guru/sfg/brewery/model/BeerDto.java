@@ -21,21 +21,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BeerOrderLine extends BaseItem {
+public class BeerDto extends BaseItem {
 
     @Builder
-    public BeerOrderLine(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                         UUID beerId, Integer orderQuantity) {
+    public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String beerName,
+                   BeerStyleEnum beerStyle, Integer quantityOnHand, BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
-        this.beerId = beerId;
-        this.orderQuantity = orderQuantity;
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.quantityOnHand = quantityOnHand;
+        this.price = price;
     }
 
-    private UUID beerId;
-    private Integer orderQuantity;
+    private String beerName;
+    private BeerStyleEnum beerStyle;
+    private Integer quantityOnHand;
+    private BigDecimal price;
 }

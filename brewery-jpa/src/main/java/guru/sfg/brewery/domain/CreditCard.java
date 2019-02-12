@@ -17,10 +17,10 @@
 
 package guru.sfg.brewery.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,11 +30,11 @@ import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
 @NoArgsConstructor
 @Entity
 public class CreditCard extends BaseEntity {
 
+    @Builder
     public CreditCard(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Integer cardNumber,
                       LocalDate expirationDate, Integer cvv, Boolean primary) {
         super(id, version, createdDate, lastModifiedDate);

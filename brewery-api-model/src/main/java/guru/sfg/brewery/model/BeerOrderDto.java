@@ -27,11 +27,11 @@ import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BeerOrder extends BaseItem {
+public class BeerOrderDto extends BaseItem {
 
     @Builder
-    public BeerOrder(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLine> beerOrderLines,
-                     OrderStatusEnum orderStatus, String orderStatusCallbackUrl) {
+    public BeerOrderDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLineDto> beerOrderLines,
+                        OrderStatusEnum orderStatus, String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerId = customerId;
         this.beerOrderLines = beerOrderLines;
@@ -40,7 +40,7 @@ public class BeerOrder extends BaseItem {
     }
 
     private UUID customerId;
-    private List<BeerOrderLine> beerOrderLines;
+    private List<BeerOrderLineDto> beerOrderLines;
     private OrderStatusEnum orderStatus;
     private String orderStatusCallbackUrl;
 }

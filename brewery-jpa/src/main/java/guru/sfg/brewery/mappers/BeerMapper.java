@@ -14,32 +14,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+package guru.sfg.brewery.mappers;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
-import java.util.UUID;
+import guru.sfg.brewery.domain.Beer;
+import guru.sfg.brewery.model.BeerDto;
+import org.mapstruct.Mapper;
 
-/**
- * Created by jt on 2019-01-26.
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@Entity
-public class Brewery extends BaseEntity {
+@Mapper
+public interface BeerMapper {
 
-    @Builder
-    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
-    }
+    BeerDto beerToBeerDto(Beer beer);
 
-    private String breweryName;
-
+    Beer beerDtoToBeer(BeerDto beerDto);
 }

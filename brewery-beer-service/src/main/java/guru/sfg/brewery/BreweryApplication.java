@@ -15,28 +15,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.model;
+package guru.sfg.brewery;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.UUID;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class CreditCard extends BaseItem {
-
-    @Builder
-    public CreditCard(UUID id, Integer version, OffsetDateTime createdDate,
-                      OffsetDateTime lastModifiedDate) {
-        super(id, version, createdDate, lastModifiedDate);
+@SpringBootApplication
+public class BreweryApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(BreweryApplication.class, args);
     }
-
-    private Integer cardNumber;
-    private LocalDate expirationDate;
-    private Integer cvv;
-    private Boolean primary;
 }

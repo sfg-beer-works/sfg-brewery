@@ -26,6 +26,7 @@
         <module>brewery</module>
         <module>brewery-jpa</module>
         <module>brewery-api-model</module>
+        <module>brewery-beer-service</module>
     </modules>
 
     <parent>

@@ -17,6 +17,9 @@
 package guru.sfg.brewery.repositories;
 
 import guru.sfg.brewery.domain.Beer;
+import guru.sfg.brewery.model.BeerStyleEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
@@ -25,4 +28,10 @@ import java.util.UUID;
  * Created by jt on 2019-01-26.
  */
 public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
+    
+    Page<Beer> findAllByBeerName(String beerName, PageRequest pageRequest);
+
+    Page<Beer> findAllByBeerStyle(BeerStyleEnum beerStyle, PageRequest pageRequest);
+
+    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
 }

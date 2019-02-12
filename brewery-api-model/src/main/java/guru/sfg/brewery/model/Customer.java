@@ -31,12 +31,12 @@ public class Customer extends BaseItem {
 
     @Builder
     public Customer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name,
-                    List<CreditCard> creditCards) {
+                    List<CreditCardDto> creditCards) {
         super(id, version, createdDate, lastModifiedDate);
         this.name = name;
         this.creditCards = creditCards;
     }
 
     private String name;
-    private List<CreditCard> creditCards;
+    private List<CreditCardDto> creditCards;
 }

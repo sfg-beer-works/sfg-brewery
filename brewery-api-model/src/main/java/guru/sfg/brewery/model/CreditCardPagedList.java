@@ -22,13 +22,13 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public class CreditCardPagedList extends PageImpl<CreditCard> {
+public class CreditCardPagedList extends PageImpl<CreditCardDto> {
 
-    public CreditCardPagedList(List<CreditCard> content, Pageable pageable, long total) {
+    public CreditCardPagedList(List<CreditCardDto> content, Pageable pageable, long total) {
         super(content, pageable, total);
     }
 
-    public CreditCardPagedList(List<CreditCard> content) {
+    public CreditCardPagedList(List<CreditCardDto> content) {
         super(content);
     }
 }

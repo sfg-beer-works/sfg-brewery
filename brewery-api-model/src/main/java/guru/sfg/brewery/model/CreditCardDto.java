@@ -17,27 +17,26 @@
 
 package guru.sfg.brewery.model;
 
-import org.junit.jupiter.api.Test;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class CreditCardDto extends BaseItem {
 
-class BeerPagedListTest {
-
-    @Test
-    void testBeerPage() {
-        //given
-        List<Beer> beers = new ArrayList<>(2);
-        beers.add(Beer.builder().id(UUID.randomUUID()).build());
-        beers.add(Beer.builder().id(UUID.randomUUID()).build());
-
-        //when
-        BeerPagedList pagedList = new BeerPagedList(beers);
-
-        //then
-        assertEquals(2, pagedList.getContent().size());
+    @Builder
+    public CreditCardDto(UUID id, Integer version, OffsetDateTime createdDate,
+                         OffsetDateTime lastModifiedDate) {
+        super(id, version, createdDate, lastModifiedDate);
     }
+
+    private Integer cardNumber;
+    private LocalDate expirationDate;
+    private Integer cvv;
+    private Boolean primary;
 }

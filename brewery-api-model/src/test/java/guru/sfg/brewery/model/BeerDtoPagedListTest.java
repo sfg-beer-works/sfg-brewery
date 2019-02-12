@@ -14,32 +14,30 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+package guru.sfg.brewery.model;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@Entity
-public class Brewery extends BaseEntity {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    @Builder
-    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
+class BeerDtoPagedListTest {
+
+    @Test
+    void testBeerPage() {
+        //given
+        List<BeerDto> beers = new ArrayList<>(2);
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+
+        //when
+        BeerPagedList pagedList = new BeerPagedList(beers);
+
+        //then
+        assertEquals(2, pagedList.getContent().size());
     }
-
-    private String breweryName;
-
 }

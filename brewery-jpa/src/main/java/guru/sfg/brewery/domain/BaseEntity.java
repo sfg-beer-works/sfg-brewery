@@ -17,7 +17,6 @@
 package guru.sfg.brewery.domain;
 
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -31,7 +30,6 @@ import java.util.UUID;
  * Created by jt on 2019-01-26.
  */
 
-@SuperBuilder
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
