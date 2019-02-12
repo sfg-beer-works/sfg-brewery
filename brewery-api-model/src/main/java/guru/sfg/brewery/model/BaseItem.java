@@ -14,15 +14,27 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+@AllArgsConstructor
+public class BaseItem {
+    @JsonProperty("id")
+    private UUID id = null;
+
+    @JsonProperty("version")
+    private Integer version = null;
+
+    @JsonProperty("createdDate")
+    private OffsetDateTime createdDate = null;
+
+    @JsonProperty("lastModifiedDate")
+    private OffsetDateTime lastModifiedDate = null;
 }
+

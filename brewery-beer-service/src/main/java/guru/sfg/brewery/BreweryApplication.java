@@ -14,15 +14,15 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery;
 
-import java.util.UUID;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+@SpringBootApplication
+public class BreweryApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(BreweryApplication.class, args);
+    }
 }

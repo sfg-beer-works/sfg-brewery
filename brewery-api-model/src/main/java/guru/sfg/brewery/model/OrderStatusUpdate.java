@@ -14,15 +14,28 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.model;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class OrderStatusUpdate extends BaseItem {
+
+    @Builder
+    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+                             UUID orderId, OrderStatusEnum orderStatus) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
+    }
+
+    private UUID orderId;
+    private OrderStatusEnum orderStatus;
 }

@@ -14,15 +14,30 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.model;
 
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class BeerDtoPagedListTest {
+
+    @Test
+    void testBeerPage() {
+        //given
+        List<BeerDto> beers = new ArrayList<>(2);
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+
+        //when
+        BeerPagedList pagedList = new BeerPagedList(beers);
+
+        //then
+        assertEquals(2, pagedList.getContent().size());
+    }
 }

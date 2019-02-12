@@ -14,15 +14,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.domain;
 
-import java.util.UUID;
-
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+public enum  OrderStatusEnum {
+    NEW, READY, PICKED_UP
 }

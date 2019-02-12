@@ -14,15 +14,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.mappers;
 
-import java.util.UUID;
+import guru.sfg.brewery.domain.Beer;
+import guru.sfg.brewery.model.BeerDto;
+import org.mapstruct.Mapper;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+@Mapper
+public interface BeerMapper {
+
+    BeerDto beerToBeerDto(Beer beer);
+
+    Beer beerDtoToBeer(BeerDto beerDto);
 }

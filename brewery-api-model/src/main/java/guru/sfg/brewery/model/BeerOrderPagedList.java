@@ -14,15 +14,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.model;
 
-import java.util.UUID;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+import java.util.List;
+
+public class BeerOrderPagedList extends PageImpl<BeerOrderDto> {
+    public BeerOrderPagedList(List<BeerOrderDto> content, Pageable pageable, long total) {
+        super(content, pageable, total);
+    }
+
+    public BeerOrderPagedList(List<BeerOrderDto> content) {
+        super(content);
+    }
 }

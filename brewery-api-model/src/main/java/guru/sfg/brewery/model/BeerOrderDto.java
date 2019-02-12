@@ -14,32 +14,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.domain;
+
+package guru.sfg.brewery.model;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@Entity
-public class Brewery extends BaseEntity {
+public class BeerOrderDto extends BaseItem {
 
     @Builder
-    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public BeerOrderDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLineDto> beerOrderLines,
+                        OrderStatusEnum orderStatus, String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
+        this.customerId = customerId;
+        this.beerOrderLines = beerOrderLines;
+        this.orderStatus = orderStatus;
+        this.orderStatusCallbackUrl = orderStatusCallbackUrl;
     }
 
-    private String breweryName;
-
+    private UUID customerId;
+    private List<BeerOrderLineDto> beerOrderLines;
+    private OrderStatusEnum orderStatus;
+    private String orderStatusCallbackUrl;
 }

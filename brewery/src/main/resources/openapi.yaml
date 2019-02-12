@@ -26,8 +26,8 @@ servers:
     -   url: http://localhost:8080
         description: Local Host
 tags:
-    -   name: Beer
-        description: Beer Operations
+    -   name: BeerDto
+        description: BeerDto Operations
     -   name: Customer
         description: Customer Operations
     -   name: Order
@@ -56,9 +56,9 @@ paths:
         parameters:
             -   $ref: "#/components/parameters/BeerId"
         get:
-            description: Get Beer by Id
+            description: Get BeerDto by Id
             tags:
-                - Beer
+                - BeerDto
             responses:
                 '200':
                     description: List Beers Response
@@ -243,7 +243,7 @@ components:
         BeerId:
             name: beerId
             in: path
-            description: Beer Id
+            description: BeerDto Id
             required: true
             schema:
                 type: string

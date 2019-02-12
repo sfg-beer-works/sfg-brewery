@@ -19,6 +19,7 @@ package guru.sfg.brewery.bootstrap;
 import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.domain.BeerInventory;
 import guru.sfg.brewery.domain.Brewery;
+import guru.sfg.brewery.model.BeerStyleEnum;
 import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.BreweryRepository;
@@ -54,7 +55,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
 
             Beer mangoBobs = Beer.builder()
                     .beerName("Mango Bobs")
-                    .beerStyle("India Session Ale")
+                    .beerStyle(BeerStyleEnum.IPA)
                     .minOnHand(12)
                     .quantityToBrew(200)
                     .build();
@@ -68,7 +69,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
 
             Beer galaxyCat = Beer.builder()
                     .beerName("Galaxy Cat")
-                    .beerStyle("Pale Ale")
+                    .beerStyle(BeerStyleEnum.PALE_ALE)
                     .minOnHand(12)
                     .quantityToBrew(200)
                     .build();
@@ -82,7 +83,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
 
             Beer pinball = Beer.builder()
                     .beerName("Pinball Porter")
-                    .beerStyle("Porter")
+                    .beerStyle(BeerStyleEnum.PORTER)
                     .minOnHand(12)
                     .quantityToBrew(200)
                     .build();

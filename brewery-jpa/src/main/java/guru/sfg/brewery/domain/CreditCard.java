@@ -14,6 +14,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package guru.sfg.brewery.domain;
 
 import lombok.Builder;
@@ -21,25 +22,32 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Entity
-public class Brewery extends BaseEntity {
+public class CreditCard extends BaseEntity {
 
     @Builder
-    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public CreditCard(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Integer cardNumber,
+                      LocalDate expirationDate, Integer cvv, Boolean primary) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
+        this.primary = primary;
     }
 
-    private String breweryName;
+    private Integer cardNumber;
+    private LocalDate expirationDate;
+    private Integer cvv;
 
+    @Column(name = "PRIMARY_CARD") //'primary' is a SQL reserved word
+    private Boolean primary;
 }

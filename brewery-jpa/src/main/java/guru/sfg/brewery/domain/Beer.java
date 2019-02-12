@@ -16,26 +16,43 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.*;
+import guru.sfg.brewery.model.BeerStyleEnum;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
+@NoArgsConstructor
 public class Beer extends BaseEntity {
 
+    @Builder
+    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
+                BeerStyleEnum beerStyle, Integer minOnHand,
+                Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.minOnHand = minOnHand;
+        this.quantityToBrew = quantityToBrew;
+        this.price = price;
+        this.beerInventory = beerInventory;
+    }
+
     private String beerName;
-    private String beerStyle;
+    private BeerStyleEnum beerStyle;
 
     /**
      * Min on hand qty - used to trigger brew

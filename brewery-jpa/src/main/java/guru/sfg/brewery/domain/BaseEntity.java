@@ -16,28 +16,48 @@
  */
 package guru.sfg.brewery.domain;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
  */
+
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
+
+    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+        this.id = id;
+        this.version = version;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type="uuid-char")
+    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false )
+    private UUID id;
 
     @Version
     private Long version;
 
     @CreationTimestamp
     @Column(updatable = false)
-    protected Timestamp createdDate;
+    private Timestamp createdDate;
 
     @UpdateTimestamp
-    protected Timestamp lastModifiedDate;
+    private Timestamp lastModifiedDate;
 }

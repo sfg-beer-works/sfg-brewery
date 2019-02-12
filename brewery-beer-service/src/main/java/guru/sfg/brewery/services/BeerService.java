@@ -14,15 +14,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.services;
+
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerPagedList;
+import guru.sfg.brewery.model.BeerStyleEnum;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
+public interface BeerService {
+    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+
+    BeerDto findBeerById(UUID beerId);
 }

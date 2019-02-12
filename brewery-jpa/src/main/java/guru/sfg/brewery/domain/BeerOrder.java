@@ -16,23 +16,38 @@
  */
 package guru.sfg.brewery.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by jt on 2019-01-26.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
+@NoArgsConstructor
 public class BeerOrder extends BaseEntity {
+
+    @Builder
+    public BeerOrder(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerRef, Customer customer,
+                     Set<BeerOrderLine> beerOrderLines, OrderStatusEnum orderStatus,
+                     String orderStatusCallbackUrl) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.customerRef = customerRef;
+        this.customer = customer;
+        this.beerOrderLines = beerOrderLines;
+        this.orderStatus = orderStatus;
+        this.orderStatusCallbackUrl = orderStatusCallbackUrl;
+    }
 
     private String customerRef;
 
@@ -41,4 +56,7 @@ public class BeerOrder extends BaseEntity {
 
     @OneToMany(mappedBy = "beerOrder")
     private Set<BeerOrderLine> beerOrderLines;
+
+    private OrderStatusEnum orderStatus;
+    private String orderStatusCallbackUrl;
 }
