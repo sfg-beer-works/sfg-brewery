@@ -24,10 +24,12 @@ import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.BreweryRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by jt on 2019-01-26.
  */
+@Component
 public class DefaultBreweryLoader implements CommandLineRunner {
 
     private final BreweryRepository breweryRepository;
