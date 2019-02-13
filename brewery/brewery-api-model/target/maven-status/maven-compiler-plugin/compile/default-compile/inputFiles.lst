@@ -1,0 +1,12 @@
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/Customer.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/OrderStatusEnum.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BaseItem.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerOrderDto.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerPagedList.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/CreditCardPagedList.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerStyleEnum.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/CreditCardDto.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/OrderStatusUpdate.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerDto.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerOrderPagedList.java
+/Users/jt/src/springframework.guru/sfg-beer-works/sfg-beer-works/brewery/brewery-api-model/src/main/java/guru/sfg/brewery/model/BeerOrderLineDto.java
