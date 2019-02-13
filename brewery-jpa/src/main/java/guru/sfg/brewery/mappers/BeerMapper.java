@@ -21,7 +21,7 @@ import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.model.BeerDto;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(uses = DateMapper.class)
 public interface BeerMapper {
 
     BeerDto beerToBeerDto(Beer beer);

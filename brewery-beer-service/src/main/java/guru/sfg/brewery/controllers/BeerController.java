@@ -66,8 +66,6 @@ public class BeerController {
     @GetMapping(path = {"/{beerId}"},produces = { "application/json" })
     ResponseEntity<BeerDto>  getBeerById(@PathVariable("beerId") UUID beerId){
 
-        //todo impl
-
         return new ResponseEntity<BeerDto>(beerService.findBeerById(beerId), HttpStatus.OK);
     }
 }
