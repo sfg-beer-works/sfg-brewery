@@ -19,10 +19,14 @@ package guru.sfg.brewery.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@Getter
+@Setter
 @AllArgsConstructor
 public class BaseItem {
     @JsonProperty("id")
