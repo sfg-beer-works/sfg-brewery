@@ -67,6 +67,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.4</org.projectlombok.version>
+        <!--Surefire plugin argLine value to suppress UnresolvedMavenProperty -->
+        <argLine>--illegal-access=permit</argLine>
     </properties>
 
     <dependencies>
@@ -124,21 +126,22 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
-                <configuration>
-                    <argLine>
-                        --illegal-access=permit
-                    </argLine>
-                </configuration>
+                <!--<configuration>-->
+                    <!--suppress UnresolvedMavenProperty -->
+                    <!--<argLine>-->
+                        <!--&#45;&#45;illegal-access=permit-->
+                    <!--</argLine>-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.0</version>
-                <configuration>
-                    <argLine>
-                        --illegal-access=permit
-                    </argLine>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<argLine>-->
+                        <!--&#45;&#45;illegal-access=permit-->
+                    <!--</argLine>-->
+                <!--</configuration>-->
                 <executions>
                     <execution>
                         <goals>
@@ -173,22 +176,27 @@
                 <version>0.8.3</version>
                 <executions>
                     <!--
-                        Prepares the property pointing to the JaCoCo runtime agent which
-                        is passed as VM argument when Maven the Surefire plugin is executed.
-                    -->
+                         Prepares the property pointing to the JaCoCo runtime agent which
+                         is passed as VM argument when the Maven Surefire plugin is executed.
+                     -->
                     <execution>
-                        <id>pre-unit-test</id>
+                        <id>default-prepare-agent</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <!-- Sets the path to the file which contains the execution data. -->
-                            <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                            <!-- Sets the path to the file which contains the execution data.
+                                 ============
+                                 Defaults to ${project.build.directory}/jacoco.exec              -->
+                            <!--<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>-->
                             <!--
                                 Sets the name of the property containing the settings
                                 for JaCoCo runtime agent.
+                                =============
+                                Defaults to "argLine"
                             -->
-                            <propertyName>surefireArgLine</propertyName>
+                            <!--<propertyName>surefireArgLine</propertyName>-->
                         </configuration>
                     </execution>
                     <!--
@@ -197,31 +205,35 @@
                     -->
                     <execution>
                         <id>post-unit-test</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <!-- Sets the path to the file which contains the execution data. -->
-                            <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-                            <!-- Sets the output directory for the code coverage report. -->
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                            <!-- Sets the path to the file which contains the execution data.
+                                 ================
+                                 Defaults to ${project.build.directory}/jacoco.exec           -->
+                            <!--<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>-->
+                            <!-- Sets the output directory for the code coverage report.
+                                 ================
+                                 Defaults to ${project.reporting.outputDirectory}/jacoco      -->
+                            <!--<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>-->
                         </configuration>
                     </execution>
                     <execution>
                         <id>pre-integration-test</id>
-                        <phase>pre-integration-test</phase>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
                             <!-- Sets the path to the file which contains the execution data. -->
-                            <destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+                            <!--<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>-->
                             <!--
                                 Sets the name of the property containing the settings
                                 for JaCoCo runtime agent.
                             -->
-                            <propertyName>failsafeArgLine</propertyName>
+                            <!--<propertyName>failsafeArgLine</propertyName>-->
                         </configuration>
                     </execution>
                     <!--
@@ -230,15 +242,20 @@
                     -->
                     <execution>
                         <id>post-integration-test</id>
-                        <phase>post-integration-test</phase>
+                        <!--<phase>post-integration-test</phase>-->
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <!-- Sets the path to the file which contains the execution data. -->
-                            <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
-                            <!-- Sets the output directory for the code coverage report. -->
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                            <!-- Sets the path to the file which contains the execution data.
+                                 ===========
+                                 Defaults to ${project.build.directory/jacoco.exec}             -->
+                            <!--<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>-->
+                            <!-- Sets the output directory for the code coverage report.
+                                 ===========
+                                 Defaults to ${project.reporting.outputDirectory/jacoco}-->
+                            <!--<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>-->
                         </configuration>
                     </execution>
                 </executions>

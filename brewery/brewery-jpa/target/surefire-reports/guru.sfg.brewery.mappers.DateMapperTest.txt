@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: guru.sfg.brewery.mappers.DateMapperTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s - in guru.sfg.brewery.mappers.DateMapperTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.174 s - in guru.sfg.brewery.mappers.DateMapperTest
