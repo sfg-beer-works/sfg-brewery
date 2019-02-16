@@ -225,6 +225,25 @@ paths:
                             responses:
                                 '200':
                                     description: Okay
+    /api/v1/customers/{customerId}/order/{orderId}:
+        parameters:
+            -   $ref: "#/components/parameters/CustomerId"
+            -   $ref: "#/components/parameters/OrderId"
+        get:
+            description: Get Order By Id
+            tags:
+                - Order
+            responses:
+                '200':
+                    description: HTTP Okay
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/BeerOrderPage"
+                '404':
+                    description: Customer Id or Order Id Not Found
     /api/v1/customers/{customerId}/order/{orderId}/pickup:
         parameters:
             -   $ref: "#/components/parameters/CustomerId"
