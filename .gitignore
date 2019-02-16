@@ -68,10 +68,7 @@ local.properties
 # Maven
 ######################
 /log/
-/target/
-/brewery/target/
-/distributor/target/
-/pub/target/
+*/target/**
 ######################
 # Gradle
 ######################
