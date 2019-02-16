@@ -82,11 +82,11 @@ public class BeerServiceImpl implements BeerService {
     public BeerDto findBeerById(UUID beerId) {
         Optional<guru.sfg.brewery.domain.Beer> beerOptional = beerRepository.findById(beerId);
 
-        if (beerOptional.isEmpty()) {
+        if (beerOptional.isPresent()) {
+            return beerMapper.beerToBeerDto(beerOptional.get());
+        } else {
             //todo add error handling
             throw new RuntimeException("Not Found");
         }
-
-        return beerMapper.beerToBeerDto(beerOptional.get());
     }
 }
