@@ -17,7 +17,7 @@
 package guru.sfg.brewery.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by jt on 2019-01-26.
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @RequestMapping({"", "/"})
+    @GetMapping({"", "/"})
     public String index(){
 
         return "index";

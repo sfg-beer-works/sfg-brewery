@@ -36,8 +36,8 @@ import java.util.UUID;
 @Controller
 public class BeerController {
 
-    private final Integer DEFAULT_PAGE_NUMBER = 0;
-    private final Integer DEFAULT_PAGE_SIZE = 25;
+    private final static Integer DEFAULT_PAGE_NUMBER = 0;
+    private final static Integer DEFAULT_PAGE_SIZE = 25;
 
     private final BeerService beerService;
 
@@ -46,7 +46,7 @@ public class BeerController {
     }
 
     @GetMapping(produces = { "application/json" })
-    ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                   @RequestParam(value = "beerName", required = false) String beerName,
                                                   @RequestParam(value = "beerStyle", required = false) BeerStyleEnum beerStyle){
@@ -64,7 +64,7 @@ public class BeerController {
     }
 
     @GetMapping(path = {"/{beerId}"},produces = { "application/json" })
-    ResponseEntity<BeerDto>  getBeerById(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity<BeerDto>  getBeerById(@PathVariable("beerId") UUID beerId){
 
         return new ResponseEntity<BeerDto>(beerService.findBeerById(beerId), HttpStatus.OK);
     }

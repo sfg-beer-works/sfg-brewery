@@ -28,8 +28,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,8 +48,6 @@ public class BeerServiceImpl implements BeerService {
 
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
-
-        List<BeerDto> content = new ArrayList<>();
 
         if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
             //search both
