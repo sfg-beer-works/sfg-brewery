@@ -16,7 +16,9 @@
  */
 package guru.sfg.brewery.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -30,6 +32,8 @@ import java.util.UUID;
  * Created by jt on 2019-01-26.
  */
 
+@Setter
+@Getter
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
@@ -47,7 +51,7 @@ public class BaseEntity {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Type(type="uuid-char")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false )
     private UUID id;
 

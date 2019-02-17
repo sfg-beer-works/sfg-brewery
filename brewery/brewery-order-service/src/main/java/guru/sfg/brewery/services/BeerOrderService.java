@@ -15,28 +15,20 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.model;
+package guru.sfg.brewery.services;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import guru.sfg.brewery.model.BeerOrderDto;
+import guru.sfg.brewery.model.BeerOrderPagedList;
+import org.springframework.data.domain.Pageable;
 
-import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class Customer extends BaseItem {
+public interface BeerOrderService {
+    BeerOrderPagedList listOrders(UUID customerId, Pageable pageable);
 
-    @Builder
-    public Customer(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name,
-                    List<CreditCardDto> creditCards) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.name = name;
-        this.creditCards = creditCards;
-    }
+    BeerOrderDto placeOrder(UUID customerId, BeerOrderDto beerOrderDto);
 
-    private String name;
-    private List<CreditCardDto> creditCards;
+    BeerOrderDto getOrderById(UUID customerId, UUID orderId);
+
+    void pickupOrder(UUID customerId, UUID orderId);
 }

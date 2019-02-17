@@ -14,21 +14,16 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.BeerOrder;
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery;
 
-import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
+class BreweryOrderServiceTest {
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface BeerOrderRepository  extends PagingAndSortingRepository<BeerOrder, UUID> {
-
-    Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
+    @Test
+    void testContextLoads() {
+    }
 }

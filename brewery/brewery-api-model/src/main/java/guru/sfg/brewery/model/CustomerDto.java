@@ -14,21 +14,31 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
-import guru.sfg.brewery.domain.BeerOrder;
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+package guru.sfg.brewery.model;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class CustomerDto extends BaseItem {
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface BeerOrderRepository  extends PagingAndSortingRepository<BeerOrder, UUID> {
+    @Builder
+    public CustomerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name,
+                       List<CreditCardDto> creditCards) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.name = name;
+        this.creditCards = creditCards;
+    }
 
-    Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
+    private String name;
+    private List<CreditCardDto> creditCards;
 }

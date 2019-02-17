@@ -14,21 +14,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.sfg.brewery.repositories;
 
+package guru.sfg.brewery.mappers;
+
+import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.domain.BeerOrder;
-import guru.sfg.brewery.domain.Customer;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import guru.sfg.brewery.domain.BeerOrderLine;
+import guru.sfg.brewery.model.BeerOrderDto;
+import guru.sfg.brewery.model.BeerOrderLineDto;
+import org.mapstruct.Mapper;
 
-import java.util.UUID;
+@Mapper(uses = DateMapper.class)
+public interface BeerOrderMapper {
 
+    BeerOrderDto beerOrderToDto(BeerOrder beerOrder);
 
-/**
- * Created by jt on 2019-01-26.
- */
-public interface BeerOrderRepository  extends PagingAndSortingRepository<BeerOrder, UUID> {
+    BeerOrder dtoToBeerOrder(BeerOrderDto dto);
 
-    Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
+    BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line);
+
+    default BeerOrderLine dtoToBeerOrder(BeerOrderLineDto dto){
+        return BeerOrderLine.builder()
+                .quantity(dto.getOrderQuantity())
+                .beer(Beer.builder().id(dto.getBeerId()).build())
+                .build();
+    }
 }
