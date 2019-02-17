@@ -178,9 +178,11 @@ paths:
                     description: Bad Request
                 '404':
                     description: Customer id or credit card id not found
-    /api/v1/customers/{customerId}/order:
+    /api/v1/customers/{customerId}/orders:
         parameters:
             -   $ref: "#/components/parameters/CustomerId"
+            -   $ref: '#/components/parameters/Page'
+            -   $ref: '#/components/parameters/PageSize'
         get:
             description: List Orders
             tags:
@@ -225,7 +227,7 @@ paths:
                             responses:
                                 '200':
                                     description: Okay
-    /api/v1/customers/{customerId}/order/{orderId}:
+    /api/v1/customers/{customerId}/orders/{orderId}:
         parameters:
             -   $ref: "#/components/parameters/CustomerId"
             -   $ref: "#/components/parameters/OrderId"
@@ -244,17 +246,17 @@ paths:
                                     $ref: "#/components/schemas/BeerOrderPage"
                 '404':
                     description: Customer Id or Order Id Not Found
-    /api/v1/customers/{customerId}/order/{orderId}/pickup:
+    /api/v1/customers/{customerId}/orders/{orderId}/pickup:
         parameters:
             -   $ref: "#/components/parameters/CustomerId"
             -   $ref: "#/components/parameters/OrderId"
-        post:
+        put:
             description: Pickup Order
             tags:
                 - Order
             responses:
-                '200':
-                    description: HTTP Okay
+                '204':
+                    description: No Content
                 '404':
                     description: Customer Id or Order Id Not Found
 components:

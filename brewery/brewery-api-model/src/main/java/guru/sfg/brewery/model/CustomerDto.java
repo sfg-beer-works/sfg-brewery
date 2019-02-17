@@ -15,19 +15,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.controllers;
+package guru.sfg.brewery.model;
 
-import org.springframework.stereotype.Controller;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Controller
-public class OrderServiceController {
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 
-    //todo - impl
-    ///api/v1/customers/{customerId}/order - list orders, place order
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class CustomerDto extends BaseItem {
 
-    ///api/v1/customers/{customerId}/order/{orderId}
+    @Builder
+    public CustomerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name,
+                       List<CreditCardDto> creditCards) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.name = name;
+        this.creditCards = creditCards;
+    }
 
-    ///api/v1/customers/{customerId}/order/{orderId}/pickup
-
-
+    private String name;
+    private List<CreditCardDto> creditCards;
 }
