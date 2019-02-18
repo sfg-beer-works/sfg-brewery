@@ -46,5 +46,5 @@ public class BeerInventory extends BaseEntity{
     @ManyToOne
     private Beer beer;
 
-    private Integer quantityOnHand;
+    private Integer quantityOnHand = 0;
 }

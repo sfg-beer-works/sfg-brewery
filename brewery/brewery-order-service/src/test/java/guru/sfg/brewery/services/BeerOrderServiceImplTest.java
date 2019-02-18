@@ -86,8 +86,8 @@ class BeerOrderServiceImplTest {
                 .build());
 
         Set<BeerOrderLine> orderLines1 = new HashSet<>();
-        orderLines1.add(BeerOrderLine.builder().beer(testBeerGalaxy).quantity(5).build());
-        orderLines1.add(BeerOrderLine.builder().beer(testBeerJava).quantity(15).build());
+        orderLines1.add(BeerOrderLine.builder().beer(testBeerGalaxy).orderQuantity(5).build());
+        orderLines1.add(BeerOrderLine.builder().beer(testBeerJava).orderQuantity(15).build());
 
         testOrder1 = beerOrderRepository.save(BeerOrder.builder()
             .customer(testCustomer)
@@ -97,8 +97,8 @@ class BeerOrderServiceImplTest {
                 .build());
 
         Set<BeerOrderLine> orderLines2 = new HashSet<>();
-        orderLines1.add(BeerOrderLine.builder().beer(testBeerGalaxy).quantity(5).build());
-        orderLines1.add(BeerOrderLine.builder().beer(testBeerJava).quantity(15).build());
+        orderLines1.add(BeerOrderLine.builder().beer(testBeerGalaxy).orderQuantity(5).build());
+        orderLines1.add(BeerOrderLine.builder().beer(testBeerJava).orderQuantity(15).build());
 
         testOrder2 = beerOrderRepository.save(BeerOrder.builder()
                 .customer(testCustomer)
