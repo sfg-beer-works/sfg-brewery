@@ -18,9 +18,9 @@ package guru.sfg.brewery.domain;
 
 import guru.sfg.brewery.model.BeerStyleEnum;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -32,8 +32,8 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-01-26.
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Beer extends BaseEntity {
