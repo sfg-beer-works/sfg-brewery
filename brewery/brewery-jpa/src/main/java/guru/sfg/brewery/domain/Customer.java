@@ -17,9 +17,9 @@
 package guru.sfg.brewery.domain;
 
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,8 @@ import java.util.UUID;
 /**
  * Created by jt on 2019-01-26.
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Customer extends BaseEntity {

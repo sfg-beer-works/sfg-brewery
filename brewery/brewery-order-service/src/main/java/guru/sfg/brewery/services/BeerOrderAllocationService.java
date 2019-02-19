@@ -25,6 +25,7 @@ import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 @Slf4j
+@Service
 public class BeerOrderAllocationService {
 
     private final BeerOrderRepository beerOrderRepository;
@@ -54,10 +56,15 @@ public class BeerOrderAllocationService {
         List<BeerOrder> newOrders = beerOrderRepository.findAllByOrderStatus(OrderStatusEnum.NEW);
 
         if (newOrders.size() > 0 ) {
-            AtomicInteger totalOrdered = new AtomicInteger();
-            AtomicInteger totalAllocated = new AtomicInteger();
+
+            log.debug("Number of orders found to allocate: " + newOrders.size());
 
             newOrders.forEach(beerOrder -> {
+                log.debug("Allocating Order" + beerOrder.getCustomerRef());
+
+                AtomicInteger totalOrdered = new AtomicInteger();
+                AtomicInteger totalAllocated = new AtomicInteger();
+
                 beerOrder.getBeerOrderLines().forEach(beerOrderLine -> {
                     if ((beerOrderLine.getOrderQuantity() - beerOrderLine.getQuantityAllocated()) > 0) {
                         allocateBeerOrderLine(beerOrderLine);
@@ -67,6 +74,7 @@ public class BeerOrderAllocationService {
                 });
 
                 if(totalOrdered.get() == totalAllocated.get()){
+                    log.debug("Order Completely Allocated: " + beerOrder.getCustomerRef());
                     beerOrder.setOrderStatus(OrderStatusEnum.READY);
                 }
             });
