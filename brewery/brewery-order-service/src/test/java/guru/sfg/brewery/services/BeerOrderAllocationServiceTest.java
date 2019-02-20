@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.Commit;
 
 @DataJpaTest
 @ComponentScan(basePackages = {"guru.sfg.brewery.services", "guru.sfg.brewery.mappers"})
@@ -30,8 +31,9 @@ class BeerOrderAllocationServiceTest extends BaseServiceTest {
     @Autowired
     BeerOrderAllocationService beerOrderAllocationService;
 
+    @Commit
     @Test
-    void runBeerOrderAllocation() {
+    void runBeerOrderAllocation() throws InterruptedException {
         //run allocation
         beerOrderAllocationService.runBeerOrderAllocation();
 
