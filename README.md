@@ -7,3 +7,6 @@ SFG Beer works is a Spring Framework application used to demonstrate the interac
 This application mimics a beer distribution pipeline. Beer consumers order beers from a pub. The pub, 
 when needed will order more beer from a beer distributor. The distributor orders and receives beer from
 a brewery.
+
+### API Docs
+* [SFG Beer Works Distributor](https://sfg-beer-works.github.io/distributor-api/)
