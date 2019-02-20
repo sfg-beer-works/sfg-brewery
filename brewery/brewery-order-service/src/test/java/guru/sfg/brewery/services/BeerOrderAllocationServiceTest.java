@@ -31,7 +31,7 @@ class BeerOrderAllocationServiceTest extends BaseServiceTest {
     BeerOrderAllocationService beerOrderAllocationService;
 
     @Test
-    void runBeerOrderAllocation() {
+    void runBeerOrderAllocation() throws InterruptedException {
         //run allocation
         beerOrderAllocationService.runBeerOrderAllocation();
 
