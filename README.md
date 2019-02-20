@@ -9,4 +9,5 @@ when needed will order more beer from a beer distributor. The distributor orders
 a brewery.
 
 ### API Docs
+* [SFG Beer Works Brewery](https://sfg-beer-works.github.io/brewery-api/)
 * [SFG Beer Works Distributor](https://sfg-beer-works.github.io/distributor-api/)
