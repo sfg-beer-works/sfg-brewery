@@ -15,30 +15,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.model;
+package sfg.beerworks.distributor.services;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import sfg.beerworks.distributor.model.OrderStatusUpdate;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
-
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class OrderStatusUpdate extends BaseItem {
-
-    @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                             UUID orderId, OrderStatusEnum orderStatus) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.orderId = orderId;
-        this.orderStatus = orderStatus;
+public class BeerOrderServiceImpl implements BeerOrderService {
+    @Override
+    public void updateOrderStatus(OrderStatusUpdate orderStatusUpdate) {
+        //todo impl
     }
-
-    private UUID orderId;
-    private String customerRef;
-    private OrderStatusEnum orderStatus;
 }

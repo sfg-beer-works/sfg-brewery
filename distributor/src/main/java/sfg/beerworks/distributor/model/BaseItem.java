@@ -15,30 +15,31 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.model;
+package sfg.beerworks.distributor.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class OrderStatusUpdate extends BaseItem {
+@AllArgsConstructor
+public class BaseItem {
+    @JsonProperty("id")
+    private UUID id = null;
 
-    @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                             UUID orderId, OrderStatusEnum orderStatus) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.orderId = orderId;
-        this.orderStatus = orderStatus;
-    }
+    @JsonProperty("version")
+    private Integer version = null;
 
-    private UUID orderId;
-    private String customerRef;
-    private OrderStatusEnum orderStatus;
+    @JsonProperty("createdDate")
+    private OffsetDateTime createdDate = null;
+
+    @JsonProperty("lastModifiedDate")
+    private OffsetDateTime lastModifiedDate = null;
 }
