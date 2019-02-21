@@ -156,11 +156,9 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.28.0</version>
                 <configuration>
                     <!--<dockerHost>http://127.0.0.1:2375</dockerHost>-->
                     <dockerHost>unix:///var/run/docker.sock</dockerHost>
-                    <skip>false</skip>
                     <verbose>true</verbose>
                     <images>
                         <image>
