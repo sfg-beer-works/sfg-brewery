@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beers</title>
+</head>
+<body>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 150px">Beer Name</th>
+        <th style="width: 150px">Beer Style</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="beer : ${beers}">
+        <td th:text="${beer.beerName}"></td>
+        <td th:text="${beer.beerStyle}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
