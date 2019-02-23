@@ -17,8 +17,10 @@
 
 package sfg.beerworks.distributor.services;
 
+import org.springframework.stereotype.Service;
 import sfg.beerworks.distributor.model.OrderStatusUpdate;
 
+@Service
 public class BeerOrderServiceImpl implements BeerOrderService {
     @Override
     public void updateOrderStatus(OrderStatusUpdate orderStatusUpdate) {
