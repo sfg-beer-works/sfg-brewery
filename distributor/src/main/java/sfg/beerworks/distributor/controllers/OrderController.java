@@ -20,7 +20,7 @@ public class OrderController {
 
     @PostMapping("status")
     @ResponseStatus(HttpStatus.OK)
-    private void orderStatusWebHook(OrderStatusUpdate orderStatusUpdate){
+    public void orderStatusWebHook(OrderStatusUpdate orderStatusUpdate){
         beerOrderService.updateOrderStatus(orderStatusUpdate);
     }
 }
