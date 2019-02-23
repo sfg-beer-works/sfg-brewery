@@ -17,7 +17,10 @@
 
 package guru.sfg.brewery.controllers;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import guru.sfg.brewery.model.BeerOrderDto;
 import guru.sfg.brewery.model.BeerOrderLineDto;
 import guru.sfg.brewery.model.BeerOrderPagedList;
@@ -34,6 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -42,6 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import static com.atlassian.oai.validator.mockmvc.OpenApiValidationMatchers.openApi;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -60,6 +65,8 @@ class BeerOrderControllerTest {
     static final UUID orderId = UUID.randomUUID();
     static final UUID beerId = UUID.randomUUID();
     static final String callbackUrl = "http://example.com";
+    static final String OAC_SPEC = "https://raw.githubusercontent.com/sfg-beer-works/brewery-api/master/spec/openapi.yaml";
+
 
     @Mock
     BeerOrderService beerOrderService;
@@ -80,7 +87,10 @@ class BeerOrderControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(controller)
+                .setMessageConverters(jacksonDateTimeConverter())
+                .build();
     }
 
     @Test
@@ -95,7 +105,8 @@ class BeerOrderControllerTest {
         mockMvc.perform(get(API_ROOT + customerId.toString()+ "/orders").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.content", hasSize(2)));
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(openApi().isValid(OAC_SPEC));
 
         then(beerOrderService).should().listOrders(any(), any(Pageable.class));
     }
@@ -119,13 +130,15 @@ class BeerOrderControllerTest {
 
         mockMvc.perform(post(API_ROOT + customerId.toString() + "/orders")
                 .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.customerId", is(customerId.toString())))
                 .andExpect(jsonPath("$.beerOrderLines", hasSize(1)))
-                .andExpect(jsonPath("$.beerOrderLines[0].beerId", is(beerId.toString())));
+                .andExpect(jsonPath("$.beerOrderLines[0].beerId", is(beerId.toString())))
+                .andExpect(openApi().isValid(OAC_SPEC));
 
         then(beerOrderService).should().placeOrder(any(UUID.class), any(BeerOrderDto.class));
 
@@ -143,11 +156,14 @@ class BeerOrderControllerTest {
 
     private BeerOrderDto buildOrderDto() {
         List<BeerOrderLineDto> orderLines = Arrays.asList(BeerOrderLineDto.builder()
+                .id(UUID.randomUUID())
                 .beerId(beerId)
                 .orderQuantity(5)
                 .build());
 
         return BeerOrderDto.builder()
+                .customerId(customerId)
+                .customerRef("123")
                 .orderStatusCallbackUrl(callbackUrl)
                 .beerOrderLines(orderLines)
                 .build();
@@ -164,12 +180,25 @@ class BeerOrderControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.customerId", is(customerId.toString())))
                 .andExpect(jsonPath("$.beerOrderLines", hasSize(1)))
-                .andExpect(jsonPath("$.beerOrderLines[0].beerId", is(beerId.toString())));
+                .andExpect(jsonPath("$.beerOrderLines[0].beerId", is(beerId.toString())))
+                .andExpect(openApi().isValid(OAC_SPEC));
     }
 
     @Test
     void pickupOrder() throws Exception {
         mockMvc.perform(put(API_ROOT + customerId + "/orders/" + orderId + "/pickup"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent())
+                .andExpect(openApi().isValid(OAC_SPEC));
+    }
+
+    private MappingJackson2HttpMessageConverter jacksonDateTimeConverter() {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, true);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.registerModule(new JavaTimeModule());
+
+        return new MappingJackson2HttpMessageConverter(objectMapper);
     }
 }

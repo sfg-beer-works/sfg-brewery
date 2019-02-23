@@ -17,6 +17,7 @@
 
 package guru.sfg.brewery.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,5 +45,8 @@ public class BeerDto extends BaseItem {
     private String beerName;
     private BeerStyleEnum beerStyle;
     private Integer quantityOnHand;
+
+    @JsonFormat(shape= JsonFormat.Shape.STRING)
     private BigDecimal price;
+
 }
