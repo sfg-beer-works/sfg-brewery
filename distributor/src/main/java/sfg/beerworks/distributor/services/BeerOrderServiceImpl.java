@@ -17,13 +17,58 @@
 
 package sfg.beerworks.distributor.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sfg.beerworks.distributor.domain.BreweryOrder;
+import sfg.beerworks.distributor.domain.BreweryOrderStatus;
 import sfg.beerworks.distributor.model.OrderStatusUpdate;
+import sfg.beerworks.distributor.repository.BreweryOrderRepository;
 
+import java.util.Optional;
+import java.util.UUID;
+
+@Slf4j
 @Service
 public class BeerOrderServiceImpl implements BeerOrderService {
+
+    private final BreweryOrderRepository breweryOrderRepository;
+
+    public BeerOrderServiceImpl(BreweryOrderRepository breweryOrderRepository) {
+        this.breweryOrderRepository = breweryOrderRepository;
+    }
+
     @Override
     public void updateOrderStatus(OrderStatusUpdate orderStatusUpdate) {
-        //todo impl
+
+        try {
+            if (orderStatusUpdate.getCustomerRef() != null) {
+                UUID breweryOrderId = UUID.fromString(orderStatusUpdate.getCustomerRef());
+                updateOrder(breweryOrderId, orderStatusUpdate);
+            } else {
+                log.debug("Customer Ref is null");
+            }
+        } catch (Exception e) {
+            log.error("Error processing update", e);
+        }
+    }
+
+    private void updateOrder(UUID breweryOrderId, OrderStatusUpdate orderStatusUpdate) {
+        Optional<BreweryOrder> breweryOrderOptional = breweryOrderRepository.findById(breweryOrderId);
+
+        if(breweryOrderOptional.isPresent()){
+           BreweryOrder breweryOrder = breweryOrderOptional.get();
+
+           try {
+               BreweryOrderStatus breweryOrderStatus = BreweryOrderStatus.valueOf(orderStatusUpdate.getOrderStatus());
+
+               breweryOrder.setBreweryOrderStatus(breweryOrderStatus);
+
+               breweryOrderRepository.save(breweryOrder);
+           } catch (Exception e){
+                log.error("Error parsing enum", e);
+           }
+        } else {
+            log.error("Order Not found");
+        }
     }
 }
