@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
@@ -40,11 +41,12 @@ public class Beer extends BaseEntity {
 
     @Builder
     public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
-                BeerStyleEnum beerStyle, Integer minOnHand,
+                BeerStyleEnum beerStyle, Integer upc, Integer minOnHand,
                 Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;
         this.beerStyle = beerStyle;
+        this.upc = upc;
         this.minOnHand = minOnHand;
         this.quantityToBrew = quantityToBrew;
         this.price = price;
@@ -53,6 +55,9 @@ public class Beer extends BaseEntity {
 
     private String beerName;
     private BeerStyleEnum beerStyle;
+
+    @Column(unique = true)
+    private Integer upc;
 
     /**
      * Min on hand qty - used to trigger brew

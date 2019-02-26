@@ -14,21 +14,19 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sfg.beerworks.distributor;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+package sfg.beerworks.distributor.config;
 
-@EnableScheduling
-@EnableAsync
-@SpringBootApplication
-public class DistributorApplication {
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 
-    public static void main(String[] args) {
-        SpringApplication.run(DistributorApplication.class, args);
+@Configuration
+public class TaskConfig {
+
+    @Bean
+    TaskExecutor taskExecutor() {
+        return new SimpleAsyncTaskExecutor();
     }
-
 }
-

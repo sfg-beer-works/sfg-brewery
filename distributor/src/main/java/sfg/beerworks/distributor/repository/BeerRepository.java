@@ -20,7 +20,10 @@ package sfg.beerworks.distributor.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import sfg.beerworks.distributor.domain.Beer;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
+
+    Optional<Beer> findBeerByUpc(Integer upc);
 }

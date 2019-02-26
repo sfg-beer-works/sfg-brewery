@@ -35,6 +35,13 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseEntity {
 
+    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+        this.id = id;
+        this.version = version;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(

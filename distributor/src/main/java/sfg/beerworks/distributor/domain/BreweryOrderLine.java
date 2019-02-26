@@ -17,18 +17,30 @@
 
 package sfg.beerworks.distributor.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
-public class BreweryOrderLine {
+public class BreweryOrderLine extends BaseEntity {
+
+    @Builder
+    public BreweryOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
+                            BreweryOrder breweryOrder, Beer beer, Integer orderQuantity) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.breweryOrder = breweryOrder;
+        this.beer = beer;
+        this.orderQuantity = orderQuantity;
+    }
 
     @ManyToOne
     private BreweryOrder breweryOrder;

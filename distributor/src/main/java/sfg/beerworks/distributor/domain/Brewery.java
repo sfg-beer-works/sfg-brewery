@@ -14,21 +14,32 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sfg.beerworks.distributor;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+package sfg.beerworks.distributor.domain;
 
-@EnableScheduling
-@EnableAsync
-@SpringBootApplication
-public class DistributorApplication {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    public static void main(String[] args) {
-        SpringApplication.run(DistributorApplication.class, args);
+import javax.persistence.Entity;
+import java.sql.Timestamp;
+import java.util.UUID;
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+public class Brewery extends BaseEntity {
+
+    @Builder
+    public Brewery(UUID id, Long version, Timestamp createdDate,
+                   Timestamp lastModifiedDate, String breweryName, String baseUrl) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.breweryName = breweryName;
+        this.baseUrl = baseUrl;
     }
 
+    private String breweryName;
+    private String baseUrl;
 }
-

@@ -15,33 +15,39 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.domain;
+package sfg.beerworks.distributor.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
-public class Pub extends BaseEntity {
+public class BeerDto extends BaseItem {
 
     @Builder
-    public Pub(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String name,
-               String address, String baseUrl) {
+    public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+                   Integer upc, String beerName, String beerStyle, Integer quantityOnHand, BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
-        this.name = name;
-        this.address = address;
-        this.baseUrl = baseUrl;
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.upc = upc;
+        this.quantityOnHand = quantityOnHand;
+        this.price = price;
     }
 
-    private String name;
-    private String address;
-    private String baseUrl;
+    private String beerName;
+    private String beerStyle;
+    private Integer upc;
+    private Integer quantityOnHand;
+
+    @JsonFormat(shape= JsonFormat.Shape.STRING)
+    private BigDecimal price;
 }

@@ -14,21 +14,13 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package sfg.beerworks.distributor;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+package sfg.beerworks.distributor.repository;
 
-@EnableScheduling
-@EnableAsync
-@SpringBootApplication
-public class DistributorApplication {
+import org.springframework.data.jpa.repository.JpaRepository;
+import sfg.beerworks.distributor.domain.Brewery;
 
-    public static void main(String[] args) {
-        SpringApplication.run(DistributorApplication.class, args);
-    }
+import java.util.UUID;
 
+public interface BreweryRepository extends JpaRepository<Brewery, UUID> {
 }
-
