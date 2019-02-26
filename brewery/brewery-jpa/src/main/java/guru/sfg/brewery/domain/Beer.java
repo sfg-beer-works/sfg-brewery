@@ -41,7 +41,7 @@ public class Beer extends BaseEntity {
 
     @Builder
     public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
-                BeerStyleEnum beerStyle, Integer upc, Integer minOnHand,
+                BeerStyleEnum beerStyle, Long upc, Integer minOnHand,
                 Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;
@@ -57,7 +57,7 @@ public class Beer extends BaseEntity {
     private BeerStyleEnum beerStyle;
 
     @Column(unique = true)
-    private Integer upc;
+    private Long upc;
 
     /**
      * Min on hand qty - used to trigger brew

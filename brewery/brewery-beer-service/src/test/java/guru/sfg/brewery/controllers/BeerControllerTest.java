@@ -67,7 +67,7 @@ class BeerControllerTest {
                 .beerStyle(BeerStyleEnum.PALE_ALE)
                 .price(new BigDecimal("12.99"))
                 .quantityOnHand(4)
-                .upc(1234567890)
+                .upc(123456789012L)
                 .createdDate(OffsetDateTime.now())
                 .lastModifiedDate(OffsetDateTime.now())
                 .build();
@@ -99,6 +99,7 @@ class BeerControllerTest {
             beers.add(BeerDto.builder().id(UUID.randomUUID())
                     .version(1)
                     .beerName("Beer4")
+                    .upc(123123123122L)
                     .beerStyle(BeerStyleEnum.PALE_ALE)
                     .price(new BigDecimal("12.99"))
                     .quantityOnHand(66)
