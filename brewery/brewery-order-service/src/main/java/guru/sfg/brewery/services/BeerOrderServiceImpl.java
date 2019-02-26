@@ -64,10 +64,6 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             Page<BeerOrder> beerOrderPage =
                     beerOrderRepository.findAllByCustomer(customerOptional.get(), pageable);
 
-            beerOrderPage.getContent().forEach(foo -> {
-                System.out.println(foo.getId());
-            });
-
             return new BeerOrderPagedList(beerOrderPage
                     .stream()
                     .map(beerOrderMapper::beerOrderToDto)
@@ -130,7 +126,6 @@ public class BeerOrderServiceImpl implements BeerOrderService {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
 
         if(customerOptional.isPresent()){
-            Customer customer = customerOptional.get();
             Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(orderId);
 
             if(beerOrderOptional.isPresent()){

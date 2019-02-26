@@ -119,9 +119,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                     .beerOrderLines(orderLines1)
                     .build());
 
-            orderLines1.forEach(line -> {
-                line.setBeerOrder(testOrder1);
-            });
+            orderLines1.forEach(line -> line.setBeerOrder(testOrder1));
 
             beerOrderRepository.save(testOrder1);
         }

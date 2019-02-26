@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import sfg.beerworks.distributor.clients.BreweryClient;
 import sfg.beerworks.distributor.domain.Beer;
+import sfg.beerworks.distributor.domain.Brewery;
 import sfg.beerworks.distributor.model.BeerDto;
 import sfg.beerworks.distributor.repository.BeerRepository;
 import sfg.beerworks.distributor.repository.BreweryRepository;
@@ -74,5 +75,11 @@ public class BeerSyncService {
         log.debug("Saving Beer: " + beer.getBeerName());
 
         beerRepository.save(beer);
+    }
+
+    private void accept(Brewery brewery) {
+        breweryClient.getBeerList(brewery).subscribe(response -> {
+            response.forEach(this::updateBeer);
+        });
     }
 }
