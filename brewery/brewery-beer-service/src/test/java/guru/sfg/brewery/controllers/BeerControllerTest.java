@@ -91,7 +91,6 @@ class BeerControllerTest {
 
         BeerPagedList beerPagedList;
 
-
         @BeforeEach
         void setUp() {
             List<BeerDto> beers = new ArrayList<>();
