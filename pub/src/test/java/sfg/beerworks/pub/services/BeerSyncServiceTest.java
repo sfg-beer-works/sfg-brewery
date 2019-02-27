@@ -23,13 +23,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import sfg.beerworks.pub.clients.DistributorClient;
 import sfg.beerworks.pub.domain.Beer;
 import sfg.beerworks.pub.domain.Distributor;
-import sfg.beerworks.pub.model.BeerDto;
-import sfg.beerworks.pub.model.BeerPagedList;
 import sfg.beerworks.pub.repository.BeerRepository;
 import sfg.beerworks.pub.repository.DistributorRepository;
+import sfg.beerworks.pub.web.clients.DistributorClient;
+import sfg.beerworks.pub.web.model.BeerDto;
+import sfg.beerworks.pub.web.model.BeerPagedList;
 
 import java.util.ArrayList;
 import java.util.Arrays;

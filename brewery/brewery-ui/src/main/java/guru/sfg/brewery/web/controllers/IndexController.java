@@ -14,18 +14,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package guru.sfg.brewery.web.controllers;
 
-package guru.sfg.brewery.services;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+/**
+ * Created by jt on 2019-01-26.
+ */
+@Controller
+public class IndexController {
 
-import java.util.UUID;
+    @GetMapping({"", "/"})
+    public String index(){
 
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
-
-    BeerDto findBeerById(UUID beerId);
+        return "index";
+    }
 }

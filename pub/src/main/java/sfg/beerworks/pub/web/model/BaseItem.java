@@ -15,17 +15,31 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package sfg.beerworks.pub.web.model;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class BaseItem {
+    @JsonProperty("id")
+    private UUID id = null;
 
-    BeerDto findBeerById(UUID beerId);
+    @JsonProperty("version")
+    private Integer version = null;
+
+    @JsonProperty("createdDate")
+    private OffsetDateTime createdDate = null;
+
+    @JsonProperty("lastModifiedDate")
+    private OffsetDateTime lastModifiedDate = null;
 }

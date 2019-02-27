@@ -24,7 +24,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 
 @DataJpaTest
-@ComponentScan(basePackages = {"guru.sfg.brewery.services", "guru.sfg.brewery.mappers"})
+@ComponentScan(basePackages = {"guru.sfg.brewery.services", "guru.sfg.brewery.web.mappers"})
 class BeerOrderAllocationServiceTest extends BaseServiceTest {
 
     @Autowired

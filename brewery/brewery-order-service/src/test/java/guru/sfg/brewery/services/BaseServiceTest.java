@@ -18,8 +18,8 @@
 package guru.sfg.brewery.services;
 
 import guru.sfg.brewery.domain.*;
-import guru.sfg.brewery.model.BeerStyleEnum;
 import guru.sfg.brewery.repositories.*;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 

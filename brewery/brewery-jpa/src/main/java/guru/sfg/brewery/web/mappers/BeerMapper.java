@@ -15,17 +15,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package guru.sfg.brewery.web.mappers;
 
+import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+import org.mapstruct.Mapper;
 
-import java.util.UUID;
+@Mapper(uses = DateMapper.class)
+public interface BeerMapper {
 
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+    BeerDto beerToBeerDto(Beer beer);
 
-    BeerDto findBeerById(UUID beerId);
+    Beer beerDtoToBeer(BeerDto beerDto);
 }

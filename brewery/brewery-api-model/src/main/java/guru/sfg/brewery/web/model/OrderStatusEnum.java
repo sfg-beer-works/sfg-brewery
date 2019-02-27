@@ -15,17 +15,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package guru.sfg.brewery.web.model;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
-
-import java.util.UUID;
-
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
-
-    BeerDto findBeerById(UUID beerId);
+public enum OrderStatusEnum {
+    NEW, READY, PICKED_UP
 }

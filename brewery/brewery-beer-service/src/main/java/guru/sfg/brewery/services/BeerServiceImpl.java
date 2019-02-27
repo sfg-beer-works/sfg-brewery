@@ -18,11 +18,11 @@
 package guru.sfg.brewery.services;
 
 import guru.sfg.brewery.domain.Beer;
-import guru.sfg.brewery.mappers.BeerMapper;
-import guru.sfg.brewery.model.BeerDto;
-import guru.sfg.brewery.model.BeerPagedList;
-import guru.sfg.brewery.model.BeerStyleEnum;
 import guru.sfg.brewery.repositories.BeerRepository;
+import guru.sfg.brewery.web.mappers.BeerMapper;
+import guru.sfg.brewery.web.model.BeerDto;
+import guru.sfg.brewery.web.model.BeerPagedList;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

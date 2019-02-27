@@ -17,9 +17,9 @@
 
 package guru.sfg.brewery.services;
 
-import guru.sfg.brewery.model.BeerOrderDto;
-import guru.sfg.brewery.model.BeerOrderLineDto;
-import guru.sfg.brewery.model.BeerOrderPagedList;
+import guru.sfg.brewery.web.model.BeerOrderDto;
+import guru.sfg.brewery.web.model.BeerOrderLineDto;
+import guru.sfg.brewery.web.model.BeerOrderPagedList;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +30,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@ComponentScan(basePackages = {"guru.sfg.brewery.services", "guru.sfg.brewery.mappers"})
+@ComponentScan(basePackages = {"guru.sfg.brewery.services", "guru.sfg.brewery.web.mappers"})
 class BeerOrderServiceImplTest extends BaseServiceTest {
 
     @Test

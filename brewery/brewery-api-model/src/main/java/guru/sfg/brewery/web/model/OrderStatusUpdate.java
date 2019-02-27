@@ -15,17 +15,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package guru.sfg.brewery.web.model;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class OrderStatusUpdate extends BaseItem {
 
-    BeerDto findBeerById(UUID beerId);
+    @Builder
+    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+                             UUID orderId, OrderStatusEnum orderStatus) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
+    }
+
+    private UUID orderId;
+    private String customerRef;
+    private OrderStatusEnum orderStatus;
 }

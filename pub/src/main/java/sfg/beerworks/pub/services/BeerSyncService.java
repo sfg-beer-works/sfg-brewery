@@ -20,11 +20,11 @@ package sfg.beerworks.pub.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import sfg.beerworks.pub.clients.DistributorClient;
 import sfg.beerworks.pub.domain.Beer;
-import sfg.beerworks.pub.model.BeerDto;
 import sfg.beerworks.pub.repository.BeerRepository;
 import sfg.beerworks.pub.repository.DistributorRepository;
+import sfg.beerworks.pub.web.clients.DistributorClient;
+import sfg.beerworks.pub.web.model.BeerDto;
 
 import javax.transaction.Transactional;
 import java.util.Optional;

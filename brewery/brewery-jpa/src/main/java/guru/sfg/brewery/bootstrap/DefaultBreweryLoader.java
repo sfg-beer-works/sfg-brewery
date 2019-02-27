@@ -17,8 +17,8 @@
 package guru.sfg.brewery.bootstrap;
 
 import guru.sfg.brewery.domain.*;
-import guru.sfg.brewery.model.BeerStyleEnum;
 import guru.sfg.brewery.repositories.*;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

@@ -15,17 +15,27 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package guru.sfg.brewery.web.model;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+class BeerDtoPagedListTest {
 
-    BeerDto findBeerById(UUID beerId);
+    @Test
+    void testBeerPage() {
+        //given
+        List<BeerDto> beers = new ArrayList<>(2);
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+        beers.add(BeerDto.builder().id(UUID.randomUUID()).build());
+
+        //when
+        BeerPagedList pagedList = new BeerPagedList(beers);
+
+        //then
+        assertEquals(2, pagedList.getContent().size());
+    }
 }

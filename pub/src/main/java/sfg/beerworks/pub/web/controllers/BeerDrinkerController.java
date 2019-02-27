@@ -15,17 +15,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery.services;
+package sfg.beerworks.pub.web.controllers;
 
-import guru.sfg.brewery.web.model.BeerDto;
-import guru.sfg.brewery.web.model.BeerPagedList;
-import guru.sfg.brewery.web.model.BeerStyleEnum;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
 
-import java.util.UUID;
-
-public interface BeerService {
-    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
-
-    BeerDto findBeerById(UUID beerId);
+@Controller
+public class BeerDrinkerController {
 }
