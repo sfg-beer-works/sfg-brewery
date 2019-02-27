@@ -33,6 +33,7 @@ import java.util.UUID;
 import static com.atlassian.oai.validator.mockmvc.OpenApiValidationMatchers.openApi;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
