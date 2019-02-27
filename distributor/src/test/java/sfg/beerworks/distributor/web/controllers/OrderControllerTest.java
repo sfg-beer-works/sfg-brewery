@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.controllers;
+package sfg.beerworks.distributor.web.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,8 +26,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
-import sfg.beerworks.distributor.model.OrderStatusUpdate;
 import sfg.beerworks.distributor.services.BeerOrderService;
+import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
 
 import java.util.UUID;
 

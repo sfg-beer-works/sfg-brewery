@@ -15,15 +15,17 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.clients;
+package sfg.beerworks.distributor.web.clients;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.domain.Brewery;
-import sfg.beerworks.distributor.model.BeerPagedList;
+import sfg.beerworks.distributor.web.model.BeerPagedList;
 
+@Slf4j
 @Component
 public class BreweryClientImpl implements BreweryClient {
 
@@ -36,6 +38,9 @@ public class BreweryClientImpl implements BreweryClient {
                 .uri(LIST_BEER_URL)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
-                .bodyToMono(BeerPagedList.class);
+                .bodyToMono(BeerPagedList.class)
+                .doOnError(error -> {
+                    log.error("Error Calling endpoing", error);
+                });
     }
 }

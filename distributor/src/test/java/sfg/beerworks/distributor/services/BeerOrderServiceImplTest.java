@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sfg.beerworks.distributor.domain.BreweryOrder;
 import sfg.beerworks.distributor.domain.BreweryOrderStatus;
-import sfg.beerworks.distributor.model.OrderStatusUpdate;
 import sfg.beerworks.distributor.repository.BreweryOrderRepository;
+import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
 
 import java.util.Optional;
 import java.util.UUID;

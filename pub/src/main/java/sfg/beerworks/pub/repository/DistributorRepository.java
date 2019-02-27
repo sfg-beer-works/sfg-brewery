@@ -23,4 +23,5 @@ import sfg.beerworks.pub.domain.Distributor;
 import java.util.UUID;
 
 public interface DistributorRepository extends JpaRepository<Distributor, UUID> {
+
 }

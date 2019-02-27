@@ -15,30 +15,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.model;
+package sfg.beerworks.pub.config;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
+@Configuration
+public class TaskConfig {
 
-@Data
-@NoArgsConstructor
-public class OrderStatusUpdate extends BaseItem{
-
-    @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate,
-                             OffsetDateTime lastModifiedDate, UUID orderId, String customerRef, String orderStatus) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.orderId = orderId;
-        this.customerRef = customerRef;
-        this.orderStatus = orderStatus;
+    @Bean
+    TaskExecutor taskExecutor() {
+        return new SimpleAsyncTaskExecutor();
     }
-
-    private UUID orderId;
-    private String customerRef;
-    private String orderStatus;
-
 }

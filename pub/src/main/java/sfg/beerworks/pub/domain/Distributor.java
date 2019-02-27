@@ -34,12 +34,12 @@ public class Distributor extends BaseEntity {
 
     @Builder
     public Distributor(UUID id, Long version, Timestamp createdDate,
-                       Timestamp lastModifiedDate, String breweryName, String baseUrl) {
+                       Timestamp lastModifiedDate, String distributorName, String baseUrl) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryName = breweryName;
+        this.distributorName = distributorName;
         this.baseUrl = baseUrl;
     }
 
-    private String breweryName;
+    private String distributorName;
     private String baseUrl;
 }

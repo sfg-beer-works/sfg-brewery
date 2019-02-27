@@ -65,6 +65,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                     .beerStyle(BeerStyleEnum.IPA)
                     .minOnHand(12)
                     .quantityToBrew(200)
+                    .upc(337010000001L)
                     .build();
 
             beerRepository.save(mangoBobs);
@@ -79,6 +80,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                     .beerStyle(BeerStyleEnum.PALE_ALE)
                     .minOnHand(12)
                     .quantityToBrew(200)
+                    .upc(337010000002L)
                     .build();
 
             beerRepository.save(galaxyCat);
@@ -93,6 +95,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                     .beerStyle(BeerStyleEnum.PORTER)
                     .minOnHand(12)
                     .quantityToBrew(200)
+                    .upc(337010000003L)
                     .build();
 
             beerRepository.save(pinball);

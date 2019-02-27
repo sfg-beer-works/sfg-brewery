@@ -34,7 +34,7 @@ public class BeerDto extends BaseItem {
 
     @Builder
     public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                   Integer upc, String beerName, String beerStyle, Integer quantityOnHand, BigDecimal price) {
+                   Long upc, String beerName, String beerStyle, Integer quantityOnHand, BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;
         this.beerStyle = beerStyle;
@@ -45,7 +45,7 @@ public class BeerDto extends BaseItem {
 
     private String beerName;
     private String beerStyle;
-    private Integer upc;
+    private Long upc;
     private Integer quantityOnHand;
 
     @JsonFormat(shape= JsonFormat.Shape.STRING)

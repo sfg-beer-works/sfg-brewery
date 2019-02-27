@@ -15,24 +15,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.repository;
+package sfg.beerworks.distributor.web.mappers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.mapstruct.Mapper;
 import sfg.beerworks.distributor.domain.Beer;
+import sfg.beerworks.distributor.web.model.BeerDto;
 
-import java.util.Optional;
-import java.util.UUID;
+@Mapper(uses = DateMapper.class)
+public interface BeerMapper {
 
-public interface BeerRepository extends JpaRepository<Beer, UUID> {
+    BeerDto beerToBeerDto(Beer beer);
 
-    Optional<Beer> findBeerByUpc(Long upc);
-
-    Page<Beer> findAllByBeerName(String beerName, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerStyle(String beerStyle, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, String beerStyle, PageRequest pageRequest);
-
+    Beer beerDtoToBeer(BeerDto beerDto);
 }

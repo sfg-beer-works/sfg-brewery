@@ -15,16 +15,16 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.services;
+package sfg.beerworks.pub.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import sfg.beerworks.distributor.domain.Beer;
-import sfg.beerworks.distributor.repository.BeerRepository;
-import sfg.beerworks.distributor.repository.BreweryRepository;
-import sfg.beerworks.distributor.web.clients.BreweryClient;
-import sfg.beerworks.distributor.web.model.BeerDto;
+import sfg.beerworks.pub.clients.DistributorClient;
+import sfg.beerworks.pub.domain.Beer;
+import sfg.beerworks.pub.model.BeerDto;
+import sfg.beerworks.pub.repository.BeerRepository;
+import sfg.beerworks.pub.repository.DistributorRepository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -32,22 +32,20 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class BeerSyncService {
-
     private final BeerRepository beerRepository;
-    private final BreweryRepository breweryRepository;
-    private final BreweryClient breweryClient;
+    private final DistributorRepository distributorRepository;
+    private final DistributorClient distributorClient;
 
-    public BeerSyncService(BeerRepository beerRepository, BreweryRepository breweryRepository,
-                           BreweryClient breweryClient) {
+    public BeerSyncService(BeerRepository beerRepository, DistributorRepository distributorRepository, DistributorClient distributorClient) {
         this.beerRepository = beerRepository;
-        this.breweryRepository = breweryRepository;
-        this.breweryClient = breweryClient;
+        this.distributorRepository = distributorRepository;
+        this.distributorClient = distributorClient;
     }
 
-    @Scheduled(fixedRate = 10000) //every 10 seconds
+    @Scheduled(fixedRate = 10500) //every 10 seconds
     public void syncBeersFromBreweries(){
-        breweryRepository.findAll().forEach(brewery -> {
-            breweryClient.getBeerList(brewery).subscribe(response -> {
+        distributorRepository.findAll().forEach(distributor -> {
+            distributorClient.getBeerList(distributor).subscribe(response -> {
                 response.getContent().forEach(this::updateBeer);
             });
         });
@@ -64,10 +62,8 @@ public class BeerSyncService {
         beer.setQuantityOnHand(beerDto.getQuantityOnHand());
         beer.setUpc(beerDto.getUpc());
 
-        log.debug("Distributor Saving Beer: " + beer.getBeerName() + " UPC: " + beer.getUpc());
+        log.debug("Pub Saving Beer: " + beer.getBeerName() + " UPC: " + beer.getUpc());
 
-        Beer savedBeer = beerRepository.save(beer);
-
-        log.debug("Saved Beer Id:" + savedBeer.getId());
+        beerRepository.save(beer);
     }
 }

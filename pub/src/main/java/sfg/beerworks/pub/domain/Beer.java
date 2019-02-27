@@ -37,7 +37,7 @@ public class Beer extends BaseEntity{
 
     @Builder
     public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Distributor distributor,
-                String beerName, String beerStyle, Integer upc, BigDecimal price,
+                String beerName, String beerStyle, Long upc, BigDecimal price,
                 Integer quantityOnHand) {
         super(id, version, createdDate, lastModifiedDate);
         this.distributor = distributor;
@@ -54,7 +54,7 @@ public class Beer extends BaseEntity{
     private String beerStyle;
 
     @Column(unique = true)
-    private Integer upc;
+    private Long upc;
 
     private BigDecimal price;
     private Integer quantityOnHand;

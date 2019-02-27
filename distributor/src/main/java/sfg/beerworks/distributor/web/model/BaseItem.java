@@ -15,39 +15,31 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.model;
+package sfg.beerworks.distributor.web.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class BeerDto extends BaseItem {
+@AllArgsConstructor
+public class BaseItem {
+    @JsonProperty("id")
+    private UUID id = null;
 
-    @Builder
-    public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                   Integer upc, String beerName, String beerStyle, Integer quantityOnHand, BigDecimal price) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.beerName = beerName;
-        this.beerStyle = beerStyle;
-        this.upc = upc;
-        this.quantityOnHand = quantityOnHand;
-        this.price = price;
-    }
+    @JsonProperty("version")
+    private Integer version = null;
 
-    private String beerName;
-    private String beerStyle;
-    private Integer upc;
-    private Integer quantityOnHand;
+    @JsonProperty("createdDate")
+    private OffsetDateTime createdDate = null;
 
-    @JsonFormat(shape= JsonFormat.Shape.STRING)
-    private BigDecimal price;
+    @JsonProperty("lastModifiedDate")
+    private OffsetDateTime lastModifiedDate = null;
 }

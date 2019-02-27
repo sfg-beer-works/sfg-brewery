@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.services;
+package sfg.beerworks.pub.services;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,15 +23,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import sfg.beerworks.distributor.domain.Beer;
-import sfg.beerworks.distributor.domain.Brewery;
-import sfg.beerworks.distributor.repository.BeerRepository;
-import sfg.beerworks.distributor.repository.BreweryRepository;
-import sfg.beerworks.distributor.web.clients.BreweryClient;
-import sfg.beerworks.distributor.web.model.BeerDto;
-import sfg.beerworks.distributor.web.model.BeerPagedList;
+import sfg.beerworks.pub.clients.DistributorClient;
+import sfg.beerworks.pub.domain.Beer;
+import sfg.beerworks.pub.domain.Distributor;
+import sfg.beerworks.pub.model.BeerDto;
+import sfg.beerworks.pub.model.BeerPagedList;
+import sfg.beerworks.pub.repository.BeerRepository;
+import sfg.beerworks.pub.repository.DistributorRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -45,15 +48,15 @@ class BeerSyncServiceTest {
     BeerRepository beerRepository;
 
     @Mock
-    BreweryRepository breweryRepository;
+    DistributorRepository distributorRepository;
 
     @Mock
-    BreweryClient breweryClient;
+    DistributorClient distributorClient;
 
     @InjectMocks
     BeerSyncService syncService;
 
-    Brewery brewery = Brewery.builder().build();
+    Distributor distributor = Distributor.builder().build();
 
     @Test
     void syncBeersFromBreweries() {
@@ -62,17 +65,14 @@ class BeerSyncServiceTest {
         beerDtos.add(BeerDto.builder().build());
         BeerPagedList beerPagedList = new BeerPagedList(beerDtos);
 
-        given(breweryRepository.findAll()).willReturn(Arrays.asList(brewery));
-        given(breweryClient.getBeerList(any())).willReturn(Mono.just(beerPagedList));
-        given(beerRepository.findBeerByUpc(any())).willReturn(Optional.of(Beer.builder().id(UUID.randomUUID()).build()), Optional.empty());
-        given(beerRepository.save(any())).willReturn(Beer.builder().id(UUID.randomUUID()).build());
+        given(distributorRepository.findAll()).willReturn(Arrays.asList(distributor));
+        given(distributorClient.getBeerList(any())).willReturn(Mono.just(beerPagedList));
+        given(beerRepository.findBeerByUpc(any())).willReturn(Optional.of(Beer.builder().build()), Optional.empty());
 
         syncService.syncBeersFromBreweries();
 
-        then(breweryRepository).should().findAll();
-        then(breweryClient).should().getBeerList(any());
+        then(distributorRepository).should().findAll();
+        then(distributorClient).should().getBeerList(any());
         then(beerRepository).should(times(2)).findBeerByUpc(any());
-
     }
-
 }

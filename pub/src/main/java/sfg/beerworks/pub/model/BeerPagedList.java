@@ -20,12 +20,14 @@ package sfg.beerworks.pub.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.ToString;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+@ToString
 public class BeerPagedList extends PageImpl<BeerDto> {
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
@@ -42,6 +44,7 @@ public class BeerPagedList extends PageImpl<BeerDto> {
 
         super(content, PageRequest.of(number, size), totalElements);
     }
+
     public BeerPagedList(@JsonProperty("content") List<BeerDto> content,
                          Pageable pageable, long total) {
         super(content, pageable, total);

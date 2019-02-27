@@ -15,24 +15,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.repository;
+package sfg.beerworks.pub.clients;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
-import sfg.beerworks.distributor.domain.Beer;
+import reactor.core.publisher.Mono;
+import sfg.beerworks.pub.domain.Distributor;
+import sfg.beerworks.pub.model.BeerPagedList;
 
-import java.util.Optional;
-import java.util.UUID;
-
-public interface BeerRepository extends JpaRepository<Beer, UUID> {
-
-    Optional<Beer> findBeerByUpc(Long upc);
-
-    Page<Beer> findAllByBeerName(String beerName, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerStyle(String beerStyle, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, String beerStyle, PageRequest pageRequest);
-
+public interface DistributorClient {
+    Mono<BeerPagedList> getBeerList(Distributor distributor);
 }

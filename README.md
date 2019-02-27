@@ -19,3 +19,4 @@ a brewery.
 | --------| -----|
 | Brewery Beer Service | 8080 |
 | Distributor | 8090 | 
+| Pub | 8091 |

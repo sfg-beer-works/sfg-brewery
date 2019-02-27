@@ -15,12 +15,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.clients;
+package sfg.beerworks.distributor.web.model;
 
-import reactor.core.publisher.Mono;
-import sfg.beerworks.distributor.domain.Brewery;
-import sfg.beerworks.distributor.model.BeerPagedList;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public interface BreweryClient {
-    Mono<BeerPagedList> getBeerList(Brewery brewery);
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+public class OrderStatusUpdate extends BaseItem{
+
+    @Builder
+    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate,
+                             OffsetDateTime lastModifiedDate, UUID orderId, String customerRef, String orderStatus) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.orderId = orderId;
+        this.customerRef = customerRef;
+        this.orderStatus = orderStatus;
+    }
+
+    private UUID orderId;
+    private String customerRef;
+    private String orderStatus;
+
 }
