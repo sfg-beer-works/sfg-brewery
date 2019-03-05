@@ -55,11 +55,6 @@ public class BeerOrderStatusChangeEventListener {
 
         try{
             log.debug("Posting to callback url");
-            System.out.println("####################");
-            System.out.println("####################");
-            System.out.println("####################");
-            System.out.println("####################");
-            System.out.println("####################");
             restTemplate.postForObject(event.getBeerOrder().getOrderStatusCallbackUrl(), update, String.class);
         } catch (Throwable t){
             log.error("Error Preforming callback for order: " + event.getBeerOrder().getId(), t);
