@@ -30,7 +30,10 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-
+        <!--set this to your docker acct name-->
+        <docker.image.prefix>sfgbeerworks</docker.image.prefix>
+        <!--Set to name of project-->
+        <docker.image.name>${artifactId}</docker.image.name>
     </properties>
 
     <dependencies>
@@ -113,7 +116,28 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <!--                todo configure-->
+                <configuration>
+                    <!--<dockerHost>http://127.0.0.1:2375</dockerHost>-->
+                    <dockerHost>unix:///var/run/docker.sock</dockerHost>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>${docker.image.prefix}/${docker.image.name}</name>
+                            <alias>brewery-beer-service</alias>
+                            <build>
+                                <!--copies artifact to docker build dir in target-->
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>
