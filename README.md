@@ -11,12 +11,15 @@ a brewery.
 ### API Docs
 * [SFG Beer Works Brewery](https://sfg-beer-works.github.io/brewery-api/)
 * [SFG Beer Works Distributor](https://sfg-beer-works.github.io/distributor-api/)
-
+* [SFG Beer Works Pub](https://sfg-beer-works.github.io/pub-api/)
 
 # Default Port Mappings - For Single Host
 
 | Service Name | Port | 
 | --------| -----|
 | Brewery Beer Service | 8080 |
+| Brewery Order Service | 8081 |
+| Brewery UI | 8082 |
 | Distributor | 8090 | 
 | Pub | 8091 |
+| Consumer | 8092
