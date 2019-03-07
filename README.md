@@ -24,13 +24,17 @@ monolith application being migrated to microservices.
 The distributor is a beer distributor - designed to be between many Pub's and many Brewerys. The distributor accepts 
 orders from pubs, places orders with Brewers, picks up orders from Breweries, delivers to Pubs.
 #### Features
-* Uses Spring WebFlux (controllers), Spring Data MongoDB, Spring Security
+* Uses Spring WebFlux (controllers) 
+* Spring Data MongoDB
+* Spring Security
 
 ## Pub
 The Pub is a bar or tavern serving beer to Beer Consumers. Beer Consumers order beer from Pub, Pub places reorders 
 from Distributors
 #### Features
-* Uses Spring WebFlux (Functional), Spring Data Redis, Spring Security
+* Uses Spring WebFlux (Functional)
+* Spring Data MongoDB
+* Spring Security
 
 ## Beer Consumer
 The Beer Consumer orders and consumes beers from Pubs. This service creates demand on the supply chain.
