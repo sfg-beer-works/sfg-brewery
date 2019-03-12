@@ -37,9 +37,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Web dependencies -->
-        <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-        <webjars-jquery.version>2.2.4</webjars-jquery.version>
+        <webjars-bootstrap.version>4.3.0</webjars-bootstrap.version>
+        <webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
+        <webjars-jquery.version>3.3.0</webjars-jquery.version>
         <wro4j.version>1.8.0</wro4j.version>
         <!--set this to your docker acct name-->
         <docker.image.prefix>sfgbeerworks</docker.image.prefix>
@@ -53,6 +53,7 @@
             <artifactId>brewery-jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -134,7 +135,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
+             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
