@@ -21,25 +21,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 public class PubOrder extends BaseEntity{
 
     @Builder
-    public PubOrder(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
+    public PubOrder(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
                     String breweryOrderId, Pub pub, Set<PubOrderLine> pubOrderLines,
                     PubOrderStatus pubOrderStatus, String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
@@ -51,14 +43,8 @@ public class PubOrder extends BaseEntity{
     }
 
     private String breweryOrderId;
-
-    @ManyToOne
     private Pub pub;
-
-    @OneToMany(mappedBy = "pubOrder", cascade = CascadeType.PERSIST)
-    @Fetch(FetchMode.JOIN)
     private Set<PubOrderLine> pubOrderLines;
-
     private PubOrderStatus pubOrderStatus = PubOrderStatus.NEW;
     private String orderStatusCallbackUrl;
 }

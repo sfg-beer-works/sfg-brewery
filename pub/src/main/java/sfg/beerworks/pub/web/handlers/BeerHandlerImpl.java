@@ -15,14 +15,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.pub.repository;
+package sfg.beerworks.pub.web.handlers;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.pub.domain.Beer;
+import sfg.beerworks.pub.repository.BeerRepository;
 
-import java.util.UUID;
+@Component
+public class BeerHandlerImpl implements BeerHandler {
 
-public interface BeerRepository extends ReactiveCrudRepository<Beer, UUID> {
-    Mono<Beer> findBeerByUpc(Long upc);
+    private BeerRepository beerRepository;
+
+    @Override
+    public Mono<ServerResponse> listBeers(ServerRequest request) {
+        return  ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_STREAM_JSON)
+                .body(beerRepository.findAll(), Beer.class);
+    }
+
+    @Override
+    public Mono<ServerResponse> getBeerById(ServerRequest request) {
+        return null;
+    }
 }

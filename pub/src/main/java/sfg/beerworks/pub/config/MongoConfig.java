@@ -15,30 +15,22 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.pub.domain;
+package sfg.beerworks.pub.config;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
+import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@Document
-public class Distributor extends BaseEntity {
-
-    @Builder
-    public Distributor(String id, Long version, LocalDateTime createdDate,
-                       LocalDateTime lastModifiedDate, String distributorName, String baseUrl) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.distributorName = distributorName;
-        this.baseUrl = baseUrl;
+@EnableReactiveMongoRepositories
+public class MongoConfig extends AbstractReactiveMongoConfiguration {
+    @Override
+    public MongoClient reactiveMongoClient() {
+        return MongoClients.create();
     }
 
-    private String distributorName;
-    private String baseUrl;
+    @Override
+    protected String getDatabaseName() {
+        return "pubdb";
+    }
 }

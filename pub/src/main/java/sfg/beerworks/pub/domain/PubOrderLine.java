@@ -22,19 +22,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import java.sql.Timestamp;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 public class PubOrderLine extends BaseEntity {
 
     @Builder
-    public PubOrderLine(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
+    public PubOrderLine(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
                         PubOrder pubOrder, Beer beer, Integer orderQuantity) {
         super(id, version, createdDate, lastModifiedDate);
         this.pubOrder = pubOrder;
@@ -42,11 +38,7 @@ public class PubOrderLine extends BaseEntity {
         this.orderQuantity = orderQuantity;
     }
 
-    @ManyToOne
     private PubOrder pubOrder;
-
-    @ManyToOne
     private Beer beer;
-
     private Integer orderQuantity = 0;
 }

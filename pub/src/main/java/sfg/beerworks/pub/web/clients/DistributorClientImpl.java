@@ -33,6 +33,9 @@ public class DistributorClientImpl implements DistributorClient {
 
     @Override
     public Mono<BeerPagedList> getBeerList(Distributor distributor) {
+
+        log.debug("Getting Beer List");
+
         return WebClient.create(distributor.getBaseUrl())
                 .get().uri(builder -> builder
                         .queryParam("pageSize", 100)

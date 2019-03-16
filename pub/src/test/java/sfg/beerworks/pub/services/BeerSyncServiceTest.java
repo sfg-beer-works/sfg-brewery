@@ -22,6 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.pub.domain.Beer;
 import sfg.beerworks.pub.domain.Distributor;
@@ -34,7 +35,6 @@ import sfg.beerworks.pub.web.model.BeerPagedList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -65,10 +65,10 @@ class BeerSyncServiceTest {
         beerDtos.add(BeerDto.builder().build());
         BeerPagedList beerPagedList = new BeerPagedList(beerDtos);
 
-        given(distributorRepository.findAll()).willReturn(Arrays.asList(distributor));
+        given(distributorRepository.findAll()).willReturn(Flux.fromIterable(Arrays.asList(distributor)));
         given(distributorClient.getBeerList(any())).willReturn(Mono.just(beerPagedList));
-        given(beerRepository.findBeerByUpc(any())).willReturn(Optional.of(Beer.builder().build()), Optional.empty());
-
+        given(beerRepository.findBeerByUpc(any())).willReturn(Mono.just(Beer.builder().build()), Mono.empty());
+        given(beerRepository.save(any())).willReturn(Mono.just(Beer.builder().build()));
         syncService.syncBeersFromBreweries();
 
         then(distributorRepository).should().findAll();

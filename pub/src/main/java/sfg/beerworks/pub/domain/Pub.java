@@ -21,19 +21,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Document
 public class Pub extends BaseEntity {
 
     @Builder
-    public Pub(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String name,
+    public Pub(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String name,
                String address, String baseUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.name = name;

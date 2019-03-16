@@ -15,30 +15,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.pub.domain;
+package sfg.beerworks.pub.web.handlers;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
+public interface BeerHandler {
+    Mono<ServerResponse> listBeers(ServerRequest request);
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Document
-public class Distributor extends BaseEntity {
-
-    @Builder
-    public Distributor(String id, Long version, LocalDateTime createdDate,
-                       LocalDateTime lastModifiedDate, String distributorName, String baseUrl) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.distributorName = distributorName;
-        this.baseUrl = baseUrl;
-    }
-
-    private String distributorName;
-    private String baseUrl;
+    Mono<ServerResponse> getBeerById(ServerRequest request);
 }
