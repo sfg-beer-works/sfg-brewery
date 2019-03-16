@@ -54,7 +54,7 @@ class OrderControllerTest {
     void testOrderStatusUpdate() {
         //given
         OrderStatusUpdate orderStatusUpdate = OrderStatusUpdate.builder()
-                .id(UUID.randomUUID())
+                .id(UUID.randomUUID().toString())
                 .customerRef("1234")
                 .build();
 

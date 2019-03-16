@@ -15,10 +15,23 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.repository;
+package sfg.beerworks.distributor.config;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import sfg.beerworks.distributor.domain.Brewery;
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
+import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-public interface BreweryRepository extends ReactiveCrudRepository<Brewery, String> {
+@EnableReactiveMongoRepositories
+public class MongoConfig extends AbstractReactiveMongoConfiguration {
+    @Override
+    public MongoClient reactiveMongoClient() {
+        return MongoClients.create();
+    }
+
+    @Override
+    protected String getDatabaseName() {
+        return "distdb";
+    }
+
 }

@@ -17,22 +17,12 @@
 
 package sfg.beerworks.distributor.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.domain.Beer;
 
-import java.util.Optional;
-import java.util.UUID;
+public interface BeerRepository extends ReactiveCrudRepository<Beer, String> {
 
-public interface BeerRepository extends JpaRepository<Beer, UUID> {
-
-    Optional<Beer> findBeerByUpc(Long upc);
-
-    Page<Beer> findAllByBeerName(String beerName, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerStyle(String beerStyle, PageRequest pageRequest);
-
-    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, String beerStyle, PageRequest pageRequest);
+    Mono<Beer> findBeerByUpc(Long upc);
 
 }

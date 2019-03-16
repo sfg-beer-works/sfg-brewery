@@ -19,7 +19,7 @@ package sfg.beerworks.distributor.web.mappers;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -29,19 +29,17 @@ import java.time.ZoneOffset;
 @Component
 public class DateMapper {
 
-    OffsetDateTime asOffsetDateTime(Timestamp ts){
-        if (ts != null){
-            return OffsetDateTime.of(ts.toLocalDateTime().getYear(), ts.toLocalDateTime().getMonthValue(),
-                    ts.toLocalDateTime().getDayOfMonth(), ts.toLocalDateTime().getHour(), ts.toLocalDateTime().getMinute(),
-                    ts.toLocalDateTime().getSecond(), ts.toLocalDateTime().getNano(), ZoneOffset.UTC);
+    OffsetDateTime asOffsetDateTime(LocalDateTime localDateTime){
+        if (localDateTime != null){
+            return localDateTime.atOffset(ZoneOffset.UTC);
         } else {
             return null;
         }
     }
 
-    Timestamp asTimestamp(OffsetDateTime offsetDateTime){
+    LocalDateTime asZoneDateTime(OffsetDateTime offsetDateTime){
         if(offsetDateTime != null) {
-            return Timestamp.valueOf(offsetDateTime.atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
+            return offsetDateTime.toLocalDateTime();
         } else {
             return null;
         }

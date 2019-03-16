@@ -17,8 +17,15 @@
 
 package sfg.beerworks.distributor.repository;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import sfg.beerworks.distributor.domain.Brewery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import sfg.beerworks.distributor.domain.Beer;
 
-public interface BreweryRepository extends ReactiveCrudRepository<Brewery, String> {
+public interface BeerPagedRepository extends PagingAndSortingRepository<Beer, String> {
+    Page<Beer> findAllByBeerName(String beerName, PageRequest pageRequest);
+
+    Page<Beer> findAllByBeerStyle(String beerStyle, PageRequest pageRequest);
+
+    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, String beerStyle, PageRequest pageRequest);
 }

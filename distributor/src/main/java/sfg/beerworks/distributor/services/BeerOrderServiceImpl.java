@@ -19,12 +19,10 @@ package sfg.beerworks.distributor.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sfg.beerworks.distributor.domain.BreweryOrder;
 import sfg.beerworks.distributor.domain.BreweryOrderStatus;
 import sfg.beerworks.distributor.repository.BreweryOrderRepository;
 import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -53,22 +51,19 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     }
 
     private void updateOrder(UUID breweryOrderId, OrderStatusUpdate orderStatusUpdate) {
-        Optional<BreweryOrder> breweryOrderOptional = breweryOrderRepository.findById(breweryOrderId);
+        breweryOrderRepository.findById(breweryOrderId.toString()).subscribe(breweryOrder -> {
+            try {
+                BreweryOrderStatus breweryOrderStatus = BreweryOrderStatus.valueOf(orderStatusUpdate.getOrderStatus());
 
-        if(breweryOrderOptional.isPresent()){
-           BreweryOrder breweryOrder = breweryOrderOptional.get();
+                breweryOrder.setBreweryOrderStatus(breweryOrderStatus);
 
-           try {
-               BreweryOrderStatus breweryOrderStatus = BreweryOrderStatus.valueOf(orderStatusUpdate.getOrderStatus());
+                breweryOrderRepository.save(breweryOrder).subscribe(savedOrder -> {
+                    log.debug("saved Order" + savedOrder.getBreweryOrderId());
+                });
 
-               breweryOrder.setBreweryOrderStatus(breweryOrderStatus);
-
-               breweryOrderRepository.save(breweryOrder);
-           } catch (Exception e){
+            } catch (Exception e){
                 log.error("Error parsing enum", e);
-           }
-        } else {
-            log.error("Order Not found");
-        }
+            }
+        });
     }
 }

@@ -17,10 +17,8 @@
 
 package sfg.beerworks.distributor.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import sfg.beerworks.distributor.domain.BreweryOrder;
 
-import java.util.UUID;
-
-public interface BreweryOrderRepository extends JpaRepository<BreweryOrder, UUID> {
+public interface BreweryOrderRepository extends ReactiveCrudRepository<BreweryOrder, String> {
 }

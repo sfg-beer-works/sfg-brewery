@@ -22,6 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.domain.Beer;
 import sfg.beerworks.distributor.domain.Brewery;
@@ -31,7 +32,10 @@ import sfg.beerworks.distributor.web.clients.BreweryClient;
 import sfg.beerworks.distributor.web.model.BeerDto;
 import sfg.beerworks.distributor.web.model.BeerPagedList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -62,11 +66,12 @@ class BeerSyncServiceTest {
         beerDtos.add(BeerDto.builder().build());
         BeerPagedList beerPagedList = new BeerPagedList(beerDtos);
 
-        given(breweryRepository.findAll()).willReturn(Arrays.asList(brewery));
+        given(breweryRepository.findAll()).willReturn(Flux.fromIterable(Arrays.asList(brewery)));
         given(breweryClient.getBeerList(any())).willReturn(Mono.just(beerPagedList));
-        given(beerRepository.findBeerByUpc(any())).willReturn(Optional.of(Beer.builder().id(UUID.randomUUID()).build()), Optional.empty());
-        given(beerRepository.save(any())).willReturn(Beer.builder().id(UUID.randomUUID()).build());
-
+        given(beerRepository.findBeerByUpc(any())).willReturn(Mono.just(Beer.builder().id(UUID.randomUUID().toString()).build()),
+                Mono.empty());
+        given(beerRepository.save(any())).willReturn(Mono.just(Beer.builder().id(UUID.randomUUID().toString()).build()));
+        given(beerRepository.count()).willReturn(Mono.just(1L));
         syncService.syncBeersFromBreweries();
 
         then(breweryRepository).should().findAll();
