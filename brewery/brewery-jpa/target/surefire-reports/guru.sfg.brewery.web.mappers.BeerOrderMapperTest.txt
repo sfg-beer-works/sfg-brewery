@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: guru.sfg.brewery.web.mappers.BeerOrderMapperTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.767 s - in guru.sfg.brewery.web.mappers.BeerOrderMapperTest

@@ -1,9 +1,0 @@
-guru\sfg\brewery\services\BeerOrderAllocationService.class
-guru\sfg\brewery\services\BeerOrderService.class
-guru\sfg\brewery\events\BeerOrderStatusChangeEventListener.class
-guru\sfg\brewery\services\BeerOrderServiceImpl.class
-guru\sfg\brewery\web\controllers\BeerOrderController.class
-guru\sfg\brewery\events\BeerOrderStatusChangeEvent.class
-guru\sfg\brewery\config\HibernateConfig.class
-guru\sfg\brewery\BreweryOrderService.class
-guru\sfg\brewery\interceptors\OrderHeaderInterceptor.class

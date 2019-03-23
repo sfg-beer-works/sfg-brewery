@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: guru.sfg.brewery.web.model.BeerDtoPagedListTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.97 s - in guru.sfg.brewery.web.model.BeerDtoPagedListTest
