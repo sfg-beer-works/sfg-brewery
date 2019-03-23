@@ -1,0 +1,7 @@
+guru\sfg\brewery\services\BaseServiceTest.class
+guru\sfg\brewery\services\BeerOrderServiceImplTest.class
+guru\sfg\brewery\BreweryOrderServiceTest.class
+guru\sfg\brewery\web\controllers\BeerOrderControllerTest.class
+guru\sfg\brewery\interceptors\OrderHeaderInterceptorTest.class
+guru\sfg\brewery\events\BeerOrderStatusChangeEventListenerTest.class
+guru\sfg\brewery\services\BeerOrderAllocationServiceTest.class

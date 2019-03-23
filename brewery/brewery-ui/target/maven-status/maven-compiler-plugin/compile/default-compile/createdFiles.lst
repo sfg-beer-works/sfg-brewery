@@ -1,0 +1,6 @@
+guru\sfg\brewery\web\services\BreweryServiceImpl.class
+guru\sfg\brewery\web\controllers\BreweryController.class
+guru\sfg\brewery\web\controllers\IndexController.class
+guru\sfg\brewery\web\services\BreweryService.class
+guru\sfg\brewery\SfgBreweryPrivateApplication.class
+guru\sfg\brewery\web\controllers\BeerController.class
