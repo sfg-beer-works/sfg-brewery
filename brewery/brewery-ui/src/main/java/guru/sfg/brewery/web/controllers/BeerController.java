@@ -43,14 +43,8 @@ import java.util.UUID;
         }
 
     @GetMapping
-    public String processFindForm(Beer beer, BindingResult result, Model model){
-        // allow parameterless GET request for /beers to return all records
-
-        if (beer.getBeerName() == null) {
-            beer.setBeerName(""); // empty string signifies broadest possible search
-        }
-
-        // find beers by name
+    public String processFindFormReturnMany(Beer beer, BindingResult result, Model model){
+       // find beers by name
         //ToDO: Add Service
         //ToDO: Get paging data from view
         Page<Beer> pagedResult = beerRepository.findAllByBeerName(beer.getBeerName(), createPageRequest(0,10,Sort.Direction.DESC,"beerName"));
