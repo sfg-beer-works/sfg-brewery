@@ -37,7 +37,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/find")
-    public String findBeers(Model model){
+    public String findCustomers(Model model){
         model.addAttribute("customer", Customer.builder().build());
         return "customers/findCustomers";
     }
@@ -63,7 +63,7 @@ public class CustomerController {
     }
 
    @GetMapping("/{customerId}")
-    public ModelAndView showBeer(@PathVariable UUID customerId) {
+    public ModelAndView showCustomer(@PathVariable UUID customerId) {
         ModelAndView mav = new ModelAndView("customers/customerDetails");
         //ToDO: Add Service
         mav.addObject(customerRepository.findById(customerId).get());
@@ -88,7 +88,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}/edit")
-   public String initUpdateBeerForm(@PathVariable UUID customerId, Model model) {
+   public String initUpdateCustomerForm(@PathVariable UUID customerId, Model model) {
        if(customerRepository.findById(customerId).isPresent())
           model.addAttribute("customer", customerRepository.findById(customerId).get());
        return "customers/createOrUpdateCustomer";
