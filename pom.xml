@@ -21,7 +21,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>beer-consumer</module>
         <module>pub</module>
         <module>distributor</module>
         <module>brewery</module>
