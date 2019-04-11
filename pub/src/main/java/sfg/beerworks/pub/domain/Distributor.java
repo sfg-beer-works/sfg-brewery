@@ -21,20 +21,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import java.sql.Timestamp;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Document
 public class Distributor extends BaseEntity {
 
     @Builder
-    public Distributor(UUID id, Long version, Timestamp createdDate,
-                       Timestamp lastModifiedDate, String distributorName, String baseUrl) {
+    public Distributor(String id, Integer version, LocalDateTime createdDate,
+                       LocalDateTime lastModifiedDate, String distributorName, String baseUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.distributorName = distributorName;
         this.baseUrl = baseUrl;

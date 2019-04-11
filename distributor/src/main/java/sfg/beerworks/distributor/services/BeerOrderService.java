@@ -17,8 +17,8 @@
 
 package sfg.beerworks.distributor.services;
 
-import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
+import sfg.beerworks.distributor.web.model.BreweryOrderStatusUpdate;
 
 public interface BeerOrderService {
-    void updateOrderStatus(OrderStatusUpdate orderStatusUpdate);
+    void updateOrderStatus(BreweryOrderStatusUpdate breweryOrderStatusUpdate);
 }

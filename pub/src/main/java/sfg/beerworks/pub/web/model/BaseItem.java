@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -32,7 +31,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class BaseItem {
     @JsonProperty("id")
-    private UUID id = null;
+    private String id = null;
 
     @JsonProperty("version")
     private Integer version = null;

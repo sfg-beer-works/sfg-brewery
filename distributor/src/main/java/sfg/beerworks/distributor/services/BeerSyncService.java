@@ -20,14 +20,15 @@ package sfg.beerworks.distributor.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import sfg.beerworks.distributor.domain.Beer;
 import sfg.beerworks.distributor.repository.BeerRepository;
 import sfg.beerworks.distributor.repository.BreweryRepository;
 import sfg.beerworks.distributor.web.clients.BreweryClient;
-import sfg.beerworks.distributor.web.model.BeerDto;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -46,28 +47,30 @@ public class BeerSyncService {
 
     @Scheduled(fixedRate = 10000) //every 10 seconds
     public void syncBeersFromBreweries(){
-        breweryRepository.findAll().forEach(brewery -> {
-            breweryClient.getBeerList(brewery).subscribe(response -> {
-                response.getContent().forEach(this::updateBeer);
-            });
-        });
-    }
-
-    @Transactional
-    public void updateBeer(BeerDto beerDto) {
-        Optional<Beer> beerOptional = beerRepository.findBeerByUpc(beerDto.getUpc());
-
-        Beer beer = beerOptional.orElseGet(() -> Beer.builder().build());
-        beer.setBeerName(beerDto.getBeerName());
-        beer.setBeerStyle(beerDto.getBeerStyle());
-        beer.setPrice(beerDto.getPrice());
-        beer.setQuantityOnHand(beerDto.getQuantityOnHand());
-        beer.setUpc(beerDto.getUpc());
-
-        log.debug("Distributor Saving Beer: " + beer.getBeerName() + " UPC: " + beer.getUpc());
-
-        Beer savedBeer = beerRepository.save(beer);
-
-        log.debug("Saved Beer Id:" + savedBeer.getId());
+        breweryRepository.findAll().log("Finding all breweries")
+                .subscribe(brewery -> {
+                    breweryClient.getBeerList(brewery)
+                            .subscribe(page -> Flux.fromIterable(page.getContent())
+                                .subscribe(beerDto -> beerRepository.findBeerByUpc(beerDto.getUpc())
+                                .defaultIfEmpty(Beer.builder()
+                                        .id(UUID.randomUUID().toString())
+                                        .createdDate(LocalDateTime.now(ZoneId.of("Z"))).build())
+                                .map(beer -> {
+                                    beer.setBeerName(beerDto.getBeerName());
+                                    beer.setBeerStyle(beerDto.getBeerStyle());
+                                    beer.setPrice(beerDto.getPrice());
+                                    beer.setQuantityOnHand(beerDto.getQuantityOnHand());
+                                    beer.setUpc(beerDto.getUpc());
+                                    beer.setLastModifiedDate(LocalDateTime.now(ZoneId.of("Z")));
+                                    return beer;
+                                }).map(beerRepository::save)
+                                .subscribe(savedBeer -> {
+                                    savedBeer.subscribe(foo -> {
+                                        System.out.println(foo.getBeerName());
+                                    });
+                                    log.debug("Saved: ");// + beer.getBeerName());
+                                    beerRepository.count().subscribe(count -> log.debug("Repository count: " + count));
+                                })));
+                });
     }
 }

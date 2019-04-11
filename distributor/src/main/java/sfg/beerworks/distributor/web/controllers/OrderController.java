@@ -1,26 +1,41 @@
+/*
+ *  Copyright 2019 the original author or authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package sfg.beerworks.distributor.web.controllers;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import sfg.beerworks.distributor.services.BeerOrderService;
-import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
+import reactor.core.publisher.Mono;
+import sfg.beerworks.distributor.services.OrderService;
+import sfg.beerworks.distributor.web.model.OrderDto;
 
 @RequestMapping("/api/v1/order/")
 @RestController
 public class OrderController {
 
-    private final BeerOrderService beerOrderService;
+    private final OrderService orderService;
 
-    public OrderController(BeerOrderService beerOrderService) {
-        this.beerOrderService = beerOrderService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
-    @PostMapping("status")
-    @ResponseStatus(HttpStatus.OK)
-    public void orderStatusWebHook(OrderStatusUpdate orderStatusUpdate){
-        beerOrderService.updateOrderStatus(orderStatusUpdate);
+    @PutMapping
+    Mono<OrderDto> saveNewOrder(Mono<OrderDto> orderDtoMono) {
+        return orderService.saveNewOrder(orderDtoMono);
     }
 }

@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.domain.Beer;
+import sfg.beerworks.distributor.repository.BeerPagedRepository;
 import sfg.beerworks.distributor.repository.BeerRepository;
 import sfg.beerworks.distributor.web.mappers.BeerMapper;
 import sfg.beerworks.distributor.web.model.BeerPagedList;
@@ -35,10 +36,12 @@ import java.util.stream.Collectors;
 public class BeerServiceImpl implements BeerService {
 
     private final BeerRepository beerRepository;
+    private final BeerPagedRepository beerPagedRepository;
     private final BeerMapper beerMapper;
 
-    public BeerServiceImpl(BeerRepository beerRepository, BeerMapper beerMapper) {
+    public BeerServiceImpl(BeerRepository beerRepository, BeerPagedRepository beerPagedRepository, BeerMapper beerMapper) {
         this.beerRepository = beerRepository;
+        this.beerPagedRepository = beerPagedRepository;
         this.beerMapper = beerMapper;
     }
 
@@ -51,17 +54,17 @@ public class BeerServiceImpl implements BeerService {
 
         if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
             //search both
-            beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
+            beerPage = beerPagedRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
         } else if (!StringUtils.isEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
             //search beer name
-            beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);
+            beerPage = beerPagedRepository.findAllByBeerName(beerName, pageRequest);
         } else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
             //search beer style
-            beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
+            beerPage = beerPagedRepository.findAllByBeerStyle(beerStyle, pageRequest);
         } else {
 
-            log.debug("Finding all, just pageable");
-            beerPage = beerRepository.findAll(pageRequest);
+            log.debug("Finding all, just pageable. Count: " + beerPagedRepository.count());
+            beerPage = beerPagedRepository.findAll(pageRequest);
         }
 
         beerPagedList = new BeerPagedList(beerPage

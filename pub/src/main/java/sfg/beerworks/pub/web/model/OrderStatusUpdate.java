@@ -29,7 +29,7 @@ import java.util.UUID;
 public class OrderStatusUpdate extends BaseItem{
 
     @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate,
+    public OrderStatusUpdate(String id, Integer version, OffsetDateTime createdDate,
                              OffsetDateTime lastModifiedDate, UUID orderId, String customerRef, String orderStatus) {
         super(id, version, createdDate, lastModifiedDate);
         this.orderId = orderId;

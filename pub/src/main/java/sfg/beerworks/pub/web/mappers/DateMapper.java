@@ -15,30 +15,34 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.distributor.web.model;
+package sfg.beerworks.pub.web.mappers;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.UUID;
+import java.time.ZoneOffset;
 
-@Data
-@NoArgsConstructor
-public class OrderStatusUpdate extends BaseItem{
+/**
+ * Created by jt on 2019-02-13.
+ */
+@Component
+public class DateMapper {
 
-    @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate,
-                             OffsetDateTime lastModifiedDate, UUID orderId, String customerRef, String orderStatus) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.orderId = orderId;
-        this.customerRef = customerRef;
-        this.orderStatus = orderStatus;
+    OffsetDateTime asOffsetDateTime(LocalDateTime localDateTime){
+        if (localDateTime != null){
+            return localDateTime.atOffset(ZoneOffset.UTC);
+        } else {
+            return null;
+        }
     }
 
-    private UUID orderId;
-    private String customerRef;
-    private String orderStatus;
+    LocalDateTime asZoneDateTime(OffsetDateTime offsetDateTime){
+        if(offsetDateTime != null) {
+            return offsetDateTime.toLocalDateTime();
+        } else {
+            return null;
+        }
+    }
 
 }

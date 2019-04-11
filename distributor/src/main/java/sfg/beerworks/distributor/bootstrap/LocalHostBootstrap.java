@@ -42,6 +42,6 @@ public class LocalHostBootstrap implements CommandLineRunner {
         breweryRepository.save(Brewery.builder()
                 .baseUrl("http://localhost:8080")
                 .breweryName("Cage")
-                .build());
+                .build()).subscribe();
     }
 }

@@ -23,6 +23,8 @@ import org.springframework.stereotype.Component;
 import sfg.beerworks.pub.domain.Distributor;
 import sfg.beerworks.pub.repository.DistributorRepository;
 
+import java.util.UUID;
+
 @Profile({"default", "localhost"})
 @Component
 public class LocalHostBootstrap implements CommandLineRunner {
@@ -39,8 +41,9 @@ public class LocalHostBootstrap implements CommandLineRunner {
 
     private void loadDistributors() {
         distributorRepository.save(Distributor.builder()
+                .id(UUID.randomUUID().toString())
                 .distributorName("SFG Beer Distributor")
                 .baseUrl("http://localhost:8090")
-                .build());
+                .build()).subscribe();
     }
 }

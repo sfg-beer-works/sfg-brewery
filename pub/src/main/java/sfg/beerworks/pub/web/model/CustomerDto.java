@@ -15,10 +15,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.pub.web.controllers;
+package sfg.beerworks.pub.web.model;
 
-import org.springframework.stereotype.Controller;
+import lombok.Builder;
 
-@Controller
-public class BeerDrinkerController {
+import java.time.OffsetDateTime;
+
+public class CustomerDto extends BaseItem {
+
+    @Builder
+    public CustomerDto(String id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String name) {
+        super(id, version, createdDate, lastModifiedDate);
+        this.name = name;
+    }
+
+    private String name;
 }

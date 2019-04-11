@@ -18,10 +18,15 @@
 package sfg.beerworks.beerconsumer.web.model
 
 import java.math.BigDecimal
+import java.time.OffsetDateTime
 
-data class BeerDto (
-    val beerName: String? = null,
-    val beerStyle: String? = null,
-    val price: BigDecimal? = null,
-    val upc: Long = 0
+data class BeerDto(
+        val id: String? = null,
+        val version: Int? = null,
+        val createdDate: OffsetDateTime? = null,
+        val lastModifiedDate: OffsetDateTime? = null,
+        val beerName: String? = null,
+        val beerStyle: String? = null,
+        val price: BigDecimal? = null,
+        val upc: Long = 0
 )

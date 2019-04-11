@@ -21,24 +21,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Document
 public class Beer extends BaseEntity{
 
     @Builder
-    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Distributor distributor,
+    public Beer(String id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Distributor distributor,
                 String beerName, String beerStyle, Long upc, BigDecimal price,
-                Integer quantityOnHand) {
+                Integer quantityOnHand, Integer quantityOnOrder) {
         super(id, version, createdDate, lastModifiedDate);
         this.distributor = distributor;
         this.beerName = beerName;
@@ -46,16 +43,14 @@ public class Beer extends BaseEntity{
         this.upc = upc;
         this.price = price;
         this.quantityOnHand = quantityOnHand;
+        this.quantityOnOrder = quantityOnOrder;
     }
 
-    @ManyToOne
     private Distributor distributor;
     private String beerName;
     private String beerStyle;
-
-    @Column(unique = true)
     private Long upc;
-
     private BigDecimal price;
-    private Integer quantityOnHand;
+    private Integer quantityOnHand = 0;
+    private Integer quantityOnOrder = 0;
 }

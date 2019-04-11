@@ -27,7 +27,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.services.BeerOrderService;
-import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
+import sfg.beerworks.distributor.web.model.BreweryOrderStatusUpdate;
 
 import java.util.UUID;
 
@@ -35,13 +35,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
-class OrderControllerTest {
+class BreweryOrderControllerTest {
 
     @Mock
     BeerOrderService beerOrderService;
 
     @InjectMocks
-    OrderController controller;
+    BreweryOrderController controller;
 
     WebTestClient client;
 
@@ -53,15 +53,15 @@ class OrderControllerTest {
     @Test
     void testOrderStatusUpdate() {
         //given
-        OrderStatusUpdate orderStatusUpdate = OrderStatusUpdate.builder()
-                .id(UUID.randomUUID())
+        BreweryOrderStatusUpdate breweryOrderStatusUpdate = BreweryOrderStatusUpdate.builder()
+                .id(UUID.randomUUID().toString())
                 .customerRef("1234")
                 .build();
 
         //when/then
         client.post().uri("/api/v1/order/status")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(orderStatusUpdate), OrderStatusUpdate.class)
+                .body(Mono.just(breweryOrderStatusUpdate), BreweryOrderStatusUpdate.class)
                 .exchange()
                 .expectStatus().isOk();
 

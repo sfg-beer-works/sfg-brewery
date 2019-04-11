@@ -18,5 +18,5 @@
 package sfg.beerworks.pub.domain;
 
 public enum PubOrderStatus {
-    NEW, READY, PICKED_UP, DELIVERED
+    NEW, DELIVERED_TO_CUSTOMER
 }

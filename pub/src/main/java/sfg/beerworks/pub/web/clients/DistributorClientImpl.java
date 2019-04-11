@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.pub.domain.Distributor;
+import sfg.beerworks.pub.domain.PurchaseOrder;
 import sfg.beerworks.pub.web.model.BeerPagedList;
 
 @Slf4j
@@ -30,13 +31,18 @@ import sfg.beerworks.pub.web.model.BeerPagedList;
 public class DistributorClientImpl implements DistributorClient {
 
     public static final String LIST_BEER_URL = "/api/v1/beer";
+    public static final String ORDER_BEER_URL = "/api/v1/order/";
 
     @Override
     public Mono<BeerPagedList> getBeerList(Distributor distributor) {
+
+        log.debug("Getting Beer List");
+
         return WebClient.create(distributor.getBaseUrl())
                 .get().uri(builder -> builder
                         .queryParam("pageSize", 100)
                         .queryParam("pageNumber", 0)
+                        .path(LIST_BEER_URL)
                         .build())
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .retrieve()
@@ -44,5 +50,13 @@ public class DistributorClientImpl implements DistributorClient {
                 .doOnError(error -> {
                         log.error("Error Calling endpoint", error);
                 });
+    }
+
+    @Override
+    public Mono<PurchaseOrder> placeOrder(PurchaseOrder purchaseOrder) {
+        return WebClient.create("http://localhost:8090")
+                .put().uri(uriBuilder -> uriBuilder.path(ORDER_BEER_URL).build())
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .retrieve().bodyToMono(PurchaseOrder.class);
     }
 }

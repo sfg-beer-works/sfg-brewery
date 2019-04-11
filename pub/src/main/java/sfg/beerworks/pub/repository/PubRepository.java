@@ -17,10 +17,8 @@
 
 package sfg.beerworks.pub.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import sfg.beerworks.pub.domain.Pub;
 
-import java.util.UUID;
-
-public interface PubRepository extends JpaRepository<Pub, UUID> {
+public interface PubRepository extends ReactiveCrudRepository<Pub, String> {
 }
