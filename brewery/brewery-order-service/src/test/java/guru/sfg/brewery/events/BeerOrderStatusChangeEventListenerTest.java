@@ -51,13 +51,14 @@ class BeerOrderStatusChangeEventListenerTest {
 
     @Test
     void listen() {
-        wireMockServer.stubFor(post("/update").willReturn(ok()));
+        wireMockServer.stubFor(post("/update").withRequestBody(matchingJsonPath("$.orderId")).willReturn(ok()));
 
         BeerOrder beerOrder = BeerOrder.builder().id(UUID.randomUUID())
                                     .orderStatus(OrderStatusEnum.READY)
                                     .orderStatusCallbackUrl("http://localhost:" + wireMockServer.port() + "/update")
                                     .createdDate(Timestamp.valueOf(LocalDateTime.now()))
                                     .build();
+
         BeerOrderStatusChangeEvent event = new BeerOrderStatusChangeEvent(beerOrder, OrderStatusEnum.NEW);
 
         listener.listen(event);
