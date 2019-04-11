@@ -22,23 +22,36 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import sfg.beerworks.pub.domain.Beer;
 import sfg.beerworks.pub.repository.BeerRepository;
+import sfg.beerworks.pub.web.mappers.BeerMapper;
+import sfg.beerworks.pub.web.model.BeerDto;
 
 @Component
 public class BeerHandlerImpl implements BeerHandler {
 
-    private BeerRepository beerRepository;
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
+
+    public BeerHandlerImpl(BeerRepository beerRepository, BeerMapper beerMapper) {
+        this.beerRepository = beerRepository;
+        this.beerMapper = beerMapper;
+    }
 
     @Override
     public Mono<ServerResponse> listBeers(ServerRequest request) {
         return  ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_STREAM_JSON)
-                .body(beerRepository.findAll(), Beer.class);
+                .body(beerRepository
+                        .findAll()
+                        .map(beerMapper::beerToBeerDto), BeerDto.class);
     }
 
     @Override
     public Mono<ServerResponse> getBeerById(ServerRequest request) {
-        return null;
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_STREAM_JSON)
+                .body(beerRepository
+                        .findById(request.pathVariable("beerId"))
+                        .map(beerMapper::beerToBeerDto), BeerDto.class);
     }
 }

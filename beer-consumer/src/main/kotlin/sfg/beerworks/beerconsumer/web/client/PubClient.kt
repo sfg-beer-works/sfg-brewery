@@ -18,8 +18,15 @@
 package sfg.beerworks.beerconsumer.web.client
 
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import sfg.beerworks.beerconsumer.web.model.BeerDto
+import sfg.beerworks.beerconsumer.web.model.CustomerDto
+import sfg.beerworks.beerconsumer.web.model.PubOrderDto
 
 interface PubClient {
     fun getBeers(): Flux<BeerDto>
+
+    fun createCustomer(customerDto : CustomerDto) : Mono<CustomerDto>
+
+    fun orderBeer(customerId : String, pubOrderDto: PubOrderDto) : Mono<PubOrderDto>
 }

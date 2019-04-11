@@ -22,23 +22,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PubOrderLine extends BaseEntity {
+public class PubOrderLine {
 
     @Builder
-    public PubOrderLine(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
-                        PubOrder pubOrder, Beer beer, Integer orderQuantity) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.pubOrder = pubOrder;
-        this.beer = beer;
+    public PubOrderLine(Long upc, Integer orderQuantity, Integer quantityDelivered) {
+        this.upc = upc;
         this.orderQuantity = orderQuantity;
+        this.quantityDelivered = quantityDelivered;
     }
 
-    private PubOrder pubOrder;
-    private Beer beer;
+    private Long upc;
     private Integer orderQuantity = 0;
+    private Integer quantityDelivered = 0;
 }

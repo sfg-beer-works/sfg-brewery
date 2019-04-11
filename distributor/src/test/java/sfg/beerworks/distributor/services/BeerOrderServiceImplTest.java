@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 import sfg.beerworks.distributor.domain.BreweryOrder;
 import sfg.beerworks.distributor.domain.BreweryOrderStatus;
 import sfg.beerworks.distributor.repository.BreweryOrderRepository;
-import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
+import sfg.beerworks.distributor.web.model.BreweryOrderStatusUpdate;
 
 import java.util.UUID;
 
@@ -29,14 +29,14 @@ class BeerOrderServiceImplTest {
 
     @Test
     void updateOrderStatusTestEmptyObj() {
-        service.updateOrderStatus(OrderStatusUpdate.builder().build());
+        service.updateOrderStatus(BreweryOrderStatusUpdate.builder().build());
     }
 
     @Test
     void testGoodStatusGoodUUID() {
         given(breweryOrderRepository.findById(anyString())).willReturn(Mono.just(BreweryOrder.builder().build()));
 
-        service.updateOrderStatus(OrderStatusUpdate.builder()
+        service.updateOrderStatus(BreweryOrderStatusUpdate.builder()
                 .customerRef(UUID.randomUUID().toString())
                 .orderStatus(BreweryOrderStatus.READY.name())
                 .build());
@@ -50,7 +50,7 @@ class BeerOrderServiceImplTest {
     void testOrderNotFound() {
         given(breweryOrderRepository.findById(anyString())).willReturn(Mono.empty());
 
-        service.updateOrderStatus(OrderStatusUpdate.builder()
+        service.updateOrderStatus(BreweryOrderStatusUpdate.builder()
                 .customerRef(UUID.randomUUID().toString())
                 .orderStatus(BreweryOrderStatus.READY.name())
                 .build());
@@ -63,7 +63,7 @@ class BeerOrderServiceImplTest {
     void testBadStatusGoodUUID() {
         given(breweryOrderRepository.findById(anyString())).willReturn(Mono.just(BreweryOrder.builder().build()));
 
-        service.updateOrderStatus(OrderStatusUpdate.builder()
+        service.updateOrderStatus(BreweryOrderStatusUpdate.builder()
                 .customerRef(UUID.randomUUID().toString())
                 .orderStatus("asdf")
                 .build());
@@ -74,7 +74,7 @@ class BeerOrderServiceImplTest {
 
     @Test
     void testGoodStatusBadUUID() {
-        service.updateOrderStatus(OrderStatusUpdate.builder()
+        service.updateOrderStatus(BreweryOrderStatusUpdate.builder()
                 .customerRef("asdf")
                 .orderStatus(BreweryOrderStatus.READY.name())
                 .build());

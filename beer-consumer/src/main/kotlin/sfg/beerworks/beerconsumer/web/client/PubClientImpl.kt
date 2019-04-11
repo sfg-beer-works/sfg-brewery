@@ -17,11 +17,58 @@
 
 package sfg.beerworks.beerconsumer.web.client
 
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Component
+import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import sfg.beerworks.beerconsumer.web.model.BeerDto
+import sfg.beerworks.beerconsumer.web.model.CustomerDto
+import sfg.beerworks.beerconsumer.web.model.PubOrderDto
 
-class PubClientImpl : PubClient {
+@ConfigurationProperties("sfg.beerworks")
+@Component
+class PubClientImpl(val webclientBuilder: WebClient.Builder) : PubClient {
+
+    companion object {
+        val V1_LIST_BEER_URL = "/api/v1/beer"
+        val V1_CUSTOMER_URL = "/api/v1/customers"
+        val V1_CUSTOMER_ORDER_URL = "/api/v1/customers/{customerId}/orders"
+    }
+
+    lateinit var puburl: String
+
     override fun getBeers(): Flux<BeerDto> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return  webclientBuilder.baseUrl(puburl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8.toString())
+                .build()
+                .get()
+                .uri(V1_LIST_BEER_URL)
+                .retrieve()
+                .bodyToFlux(BeerDto::class.java)
+    }
+
+    override fun createCustomer(customerDto: CustomerDto): Mono<CustomerDto> {
+        return webclientBuilder.baseUrl(puburl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8.toString())
+                .build()
+                .post()
+                .uri(V1_CUSTOMER_URL)
+                .body(Mono.just(customerDto), CustomerDto::class.java)
+                .retrieve()
+                .bodyToMono(CustomerDto::class.java)
+    }
+
+    override fun orderBeer(customerId : String, pubOrderDto: PubOrderDto): Mono<PubOrderDto> {
+        return webclientBuilder.baseUrl(puburl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8.toString())
+                .build()
+                .post()
+                .uri(V1_CUSTOMER_ORDER_URL, customerId)
+                .body(Mono.just(pubOrderDto), PubOrderDto::class.java)
+                .retrieve()
+                .bodyToMono(PubOrderDto::class.java)
     }
 }

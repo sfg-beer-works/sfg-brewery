@@ -52,19 +52,19 @@ public class BeerSyncService {
                                 .subscribe(beerDto -> beerRepository.findBeerByUpc(beerDto.getUpc())
                                         .defaultIfEmpty(Beer.builder()
                                                 .id(UUID.randomUUID().toString())
+                                                .quantityOnHand(12) //init qty to 12
                                                 .createdDate(LocalDateTime.now(ZoneId.of("Z"))).build())
                                         .map(beer -> {
                                             beer.setBeerName(beerDto.getBeerName());
                                             beer.setBeerStyle(beerDto.getBeerStyle());
                                             beer.setPrice(beerDto.getPrice());
-                                            beer.setQuantityOnHand(beerDto.getQuantityOnHand());
                                             beer.setUpc(beerDto.getUpc());
                                             beer.setLastModifiedDate(LocalDateTime.now(ZoneId.of("Z")));
                                             return beer;
                                         }).map(beerRepository::save)
                                         .subscribe(beerMono -> {
                                             beerMono.subscribe(beer -> {
-                                                log.debug("Saved Beer: " + beer.getBeerName());
+                                                log.debug("Saved Beer: " + beer.getBeerName() + " - " + beer.getId());
                                             });
                                         })
                         )));

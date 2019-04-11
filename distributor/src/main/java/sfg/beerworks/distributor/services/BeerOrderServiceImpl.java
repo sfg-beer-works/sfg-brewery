@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sfg.beerworks.distributor.domain.BreweryOrderStatus;
 import sfg.beerworks.distributor.repository.BreweryOrderRepository;
-import sfg.beerworks.distributor.web.model.OrderStatusUpdate;
+import sfg.beerworks.distributor.web.model.BreweryOrderStatusUpdate;
 
 import java.util.UUID;
 
@@ -36,12 +36,12 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     }
 
     @Override
-    public void updateOrderStatus(OrderStatusUpdate orderStatusUpdate) {
+    public void updateOrderStatus(BreweryOrderStatusUpdate breweryOrderStatusUpdate) {
 
         try {
-            if (orderStatusUpdate.getCustomerRef() != null) {
-                UUID breweryOrderId = UUID.fromString(orderStatusUpdate.getCustomerRef());
-                updateOrder(breweryOrderId, orderStatusUpdate);
+            if (breweryOrderStatusUpdate.getCustomerRef() != null) {
+                UUID breweryOrderId = UUID.fromString(breweryOrderStatusUpdate.getCustomerRef());
+                updateOrder(breweryOrderId, breweryOrderStatusUpdate);
             } else {
                 log.debug("Customer Ref is null");
             }
@@ -50,10 +50,10 @@ public class BeerOrderServiceImpl implements BeerOrderService {
         }
     }
 
-    private void updateOrder(UUID breweryOrderId, OrderStatusUpdate orderStatusUpdate) {
+    private void updateOrder(UUID breweryOrderId, BreweryOrderStatusUpdate breweryOrderStatusUpdate) {
         breweryOrderRepository.findById(breweryOrderId.toString()).subscribe(breweryOrder -> {
             try {
-                BreweryOrderStatus breweryOrderStatus = BreweryOrderStatus.valueOf(orderStatusUpdate.getOrderStatus());
+                BreweryOrderStatus breweryOrderStatus = BreweryOrderStatus.valueOf(breweryOrderStatusUpdate.getOrderStatus());
 
                 breweryOrder.setBreweryOrderStatus(breweryOrderStatus);
 

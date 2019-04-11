@@ -20,8 +20,6 @@ package sfg.beerworks.pub.repository;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import sfg.beerworks.pub.domain.Distributor;
 
-import java.util.UUID;
-
-public interface DistributorRepository extends ReactiveCrudRepository<Distributor, UUID> {
+public interface DistributorRepository extends ReactiveCrudRepository<Distributor, String> {
 
 }

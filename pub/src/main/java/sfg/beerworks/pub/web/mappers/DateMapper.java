@@ -15,10 +15,34 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package sfg.beerworks.pub.web.controllers;
+package sfg.beerworks.pub.web.mappers;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
-public class BeerDrinkerController {
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
+/**
+ * Created by jt on 2019-02-13.
+ */
+@Component
+public class DateMapper {
+
+    OffsetDateTime asOffsetDateTime(LocalDateTime localDateTime){
+        if (localDateTime != null){
+            return localDateTime.atOffset(ZoneOffset.UTC);
+        } else {
+            return null;
+        }
+    }
+
+    LocalDateTime asZoneDateTime(OffsetDateTime offsetDateTime){
+        if(offsetDateTime != null) {
+            return offsetDateTime.toLocalDateTime();
+        } else {
+            return null;
+        }
+    }
+
 }

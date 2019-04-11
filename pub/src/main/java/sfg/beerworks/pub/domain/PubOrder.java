@@ -21,6 +21,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -28,23 +29,24 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Document
 public class PubOrder extends BaseEntity{
 
     @Builder
-    public PubOrder(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
-                    String breweryOrderId, Pub pub, Set<PubOrderLine> pubOrderLines,
-                    PubOrderStatus pubOrderStatus, String orderStatusCallbackUrl) {
+    public PubOrder(String id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
+                    String customerId, Set<PubOrderLine> pubOrderLines, PubOrderStatus pubOrderStatus,
+                    String customerRef, String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
-        this.breweryOrderId = breweryOrderId;
-        this.pub = pub;
+        this.customerId = customerId;
         this.pubOrderLines = pubOrderLines;
         this.pubOrderStatus = pubOrderStatus;
+        this.customerRef = customerRef;
         this.orderStatusCallbackUrl = orderStatusCallbackUrl;
     }
 
-    private String breweryOrderId;
-    private Pub pub;
+    private String customerId;
     private Set<PubOrderLine> pubOrderLines;
     private PubOrderStatus pubOrderStatus = PubOrderStatus.NEW;
+    private String customerRef;
     private String orderStatusCallbackUrl;
 }

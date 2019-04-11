@@ -21,8 +21,6 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 import sfg.beerworks.pub.domain.Beer;
 
-import java.util.UUID;
-
-public interface BeerRepository extends ReactiveCrudRepository<Beer, UUID> {
+public interface BeerRepository extends ReactiveCrudRepository<Beer, String> {
     Mono<Beer> findBeerByUpc(Long upc);
 }

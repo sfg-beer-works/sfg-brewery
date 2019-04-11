@@ -19,8 +19,11 @@ package sfg.beerworks.pub.web.clients;
 
 import reactor.core.publisher.Mono;
 import sfg.beerworks.pub.domain.Distributor;
+import sfg.beerworks.pub.domain.PurchaseOrder;
 import sfg.beerworks.pub.web.model.BeerPagedList;
 
 public interface DistributorClient {
     Mono<BeerPagedList> getBeerList(Distributor distributor);
+
+    Mono<PurchaseOrder> placeOrder(PurchaseOrder purchaseOrder);
 }

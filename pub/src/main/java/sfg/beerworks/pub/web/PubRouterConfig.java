@@ -21,20 +21,35 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import sfg.beerworks.pub.web.handlers.BeerHandler;
+import sfg.beerworks.pub.web.handlers.CustomerHandler;
+import sfg.beerworks.pub.web.handlers.PubOrderHandler;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class PubRouterConfig {
 
     @Bean
-    public RouterFunction pubRouter(BeerHandler beerHandler){
+    public RouterFunction beerRouter(BeerHandler beerHandler){
         return route(GET("/api/v1/beer")
                         .and(accept(APPLICATION_JSON)), beerHandler::listBeers)
                 .and(route(GET("/api/v1/beer/{beerId}")
                         .and(accept(APPLICATION_JSON)), beerHandler::getBeerById));
+    }
+
+    @Bean
+    public RouterFunction customerRouter(CustomerHandler customerHandler){
+        return route(POST("/api/v1/customers")
+                        .and(accept(APPLICATION_JSON)), customerHandler::saveNewCustomer)
+                .and(route(GET("/api/v1/customers/{customerId}")
+                        .and(accept(APPLICATION_JSON)), customerHandler::getCustomer));
+    }
+
+    @Bean
+    public RouterFunction orderRouter(PubOrderHandler pubOrderHandler) {
+        return route(POST("/api/v1/customers/{customerId}/orders")
+                .and(accept(APPLICATION_JSON)), pubOrderHandler::saveNewPubOrder);
     }
 }

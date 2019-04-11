@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BaseEntity {
 
-    public BaseEntity(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public BaseEntity(String id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.version = version;
         this.createdDate = createdDate;
@@ -43,7 +43,7 @@ public class BaseEntity {
     private String id;
 
     @Version
-    private Long version;
+    private Integer version;
 
     @CreatedDate
     private LocalDateTime createdDate;

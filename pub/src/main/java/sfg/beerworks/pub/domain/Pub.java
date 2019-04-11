@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 public class Pub extends BaseEntity {
 
     @Builder
-    public Pub(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String name,
+    public Pub(String id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String name,
                String address, String baseUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.name = name;

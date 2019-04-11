@@ -33,9 +33,9 @@ import java.time.LocalDateTime;
 public class Beer extends BaseEntity{
 
     @Builder
-    public Beer(String id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Distributor distributor,
+    public Beer(String id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Distributor distributor,
                 String beerName, String beerStyle, Long upc, BigDecimal price,
-                Integer quantityOnHand) {
+                Integer quantityOnHand, Integer quantityOnOrder) {
         super(id, version, createdDate, lastModifiedDate);
         this.distributor = distributor;
         this.beerName = beerName;
@@ -43,6 +43,7 @@ public class Beer extends BaseEntity{
         this.upc = upc;
         this.price = price;
         this.quantityOnHand = quantityOnHand;
+        this.quantityOnOrder = quantityOnOrder;
     }
 
     private Distributor distributor;
@@ -50,5 +51,6 @@ public class Beer extends BaseEntity{
     private String beerStyle;
     private Long upc;
     private BigDecimal price;
-    private Integer quantityOnHand;
+    private Integer quantityOnHand = 0;
+    private Integer quantityOnOrder = 0;
 }

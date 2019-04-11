@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
 public class Distributor extends BaseEntity {
 
     @Builder
-    public Distributor(String id, Long version, LocalDateTime createdDate,
+    public Distributor(String id, Integer version, LocalDateTime createdDate,
                        LocalDateTime lastModifiedDate, String distributorName, String baseUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.distributorName = distributorName;
