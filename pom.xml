@@ -20,9 +20,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>sfg.beerworks</groupId>
+        <groupId>com.github.sfg-beer-works</groupId>
         <artifactId>sfg-beer-works-bom</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
 
     <packaging>pom</packaging>
@@ -60,15 +60,6 @@
     </developers>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <jaxb.version>2.3.0</jaxb.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <swagger-request-validator.version>2.2.2</swagger-request-validator.version>
-        <!--Surefire plugin argLine value to suppress UnresolvedMavenProperty -->
-        <argLine>--illegal-access=permit</argLine>
     </properties>
 
     <dependencies>

@@ -20,8 +20,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>brewery</artifactId>
-        <groupId>sfg.beerworks</groupId>
+        <artifactId>sfg-brewery-parent</artifactId>
+        <groupId>com.github.sfg-beer-works</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -51,7 +51,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-            <version>${org.projectlombok.version}</version>
         </dependency>
     </dependencies>
 </project>
