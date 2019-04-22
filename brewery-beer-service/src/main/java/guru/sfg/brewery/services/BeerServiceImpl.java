@@ -70,7 +70,7 @@ public class BeerServiceImpl implements BeerService {
                 PageRequest
                         .of(beerPage.getPageable().getPageNumber(),
                                 beerPage.getPageable().getPageSize()),
-                                beerPage.getTotalElements());
+                beerPage.getTotalElements());
         return beerPagedList;
     }
 
@@ -84,5 +84,25 @@ public class BeerServiceImpl implements BeerService {
             //todo add error handling
             throw new RuntimeException("Not Found");
         }
+    }
+
+    @Override
+    public BeerDto saveBeer(BeerDto beerDto) {
+        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));
+    }
+
+    @Override
+    public void updateBeer(UUID beerId, BeerDto beerDto) {
+        Optional<Beer> beerOptional = beerRepository.findById(beerId);
+
+        beerOptional.ifPresentOrElse(beer -> {
+            beer.setBeerName(beerDto.getBeerName());
+            beer.setBeerStyle(beerDto.getBeerStyle());
+            beer.setPrice(beerDto.getPrice());
+            beer.setUpc(beerDto.getUpc());
+            beerRepository.save(beer);
+        }, () -> {
+            throw new RuntimeException("Not Found");
+        });
     }
 }

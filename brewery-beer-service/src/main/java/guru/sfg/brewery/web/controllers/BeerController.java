@@ -22,6 +22,7 @@ import guru.sfg.brewery.web.model.BeerDto;
 import guru.sfg.brewery.web.model.BeerPagedList;
 import guru.sfg.brewery.web.model.BeerStyleEnum;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,9 +61,30 @@ public class BeerController {
         return new ResponseEntity<>(beerList, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/{beerId}"},produces = { "application/json" })
+    @GetMapping(path = {"/{beerId}"}, produces = { "application/json" })
     public ResponseEntity<BeerDto>  getBeerById(@PathVariable("beerId") UUID beerId){
 
         return new ResponseEntity<>(beerService.findBeerById(beerId), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity saveNewBeer(BeerDto beerDto){
+
+        BeerDto savedDto = beerService.saveBeer(beerDto);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        //todo hostname for uri
+        httpHeaders.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
+
+        return new ResponseEntity(httpHeaders, HttpStatus.CREATED);
+    }
+
+    @PutMapping(path = {"/{beerId}"}, produces = { "application/json" })
+    public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, BeerDto beerDto){
+
+        beerService.updateBeer(beerId, beerDto);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
