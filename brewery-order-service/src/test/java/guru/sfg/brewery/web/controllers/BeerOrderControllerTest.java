@@ -38,6 +38,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -53,10 +55,14 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, RestDocumentationExtension.class})
 class BeerOrderControllerTest {
 
     //test properties
@@ -86,9 +92,12 @@ class BeerOrderControllerTest {
     ArgumentCaptor<UUID> orderUUIDCaptor;
 
     @BeforeEach
-    void setUp() {
+    void setUp(RestDocumentationContextProvider restDocumentation) {
+        //
         mockMvc = MockMvcBuilders
                 .standaloneSetup(controller)
+                .apply(documentationConfiguration(restDocumentation))
+                .alwaysDo(document("{method-name}/{step}/"))
                 .setMessageConverters(jacksonDateTimeConverter())
                 .build();
     }
@@ -181,7 +190,27 @@ class BeerOrderControllerTest {
                 .andExpect(jsonPath("$.customerId", is(customerId.toString())))
                 .andExpect(jsonPath("$.beerOrderLines", hasSize(1)))
                 .andExpect(jsonPath("$.beerOrderLines[0].beerId", is(beerId.toString())))
-                .andExpect(openApi().isValid(OAC_SPEC));
+                .andExpect(openApi().isValid(OAC_SPEC))
+                .andDo(document("orders",
+                        responseFields(
+                            fieldWithPath("customerId")
+                                    .description("Customer Id"),
+                            fieldWithPath("customerRef")
+                                    .description("Customer Reference"),
+                                fieldWithPath("id")
+                                        .description("Customer Reference"),
+                            fieldWithPath("orderStatus")
+                                    .description("Customer Reference"),
+                            fieldWithPath("orderStatusCallbackUrl")
+                                    .description("Customer Reference"),
+                            fieldWithPath("beerOrderLines")
+                                        .description("Customer Reference"),
+                            fieldWithPath("beerOrderLines[].beerId")
+                                    .description("Customer Reference"),
+                            fieldWithPath("beerOrderLines[].orderQuantity")
+                                    .description("Customer Reference"),
+                            fieldWithPath("beerOrderLines[].id")
+                                    .description("Customer Reference"))));
     }
 
     @Test
