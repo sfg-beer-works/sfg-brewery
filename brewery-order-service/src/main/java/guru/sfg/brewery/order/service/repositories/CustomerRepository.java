@@ -14,15 +14,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package guru.sfg.brewery.order.service.repositories;
 
-package guru.sfg.brewery;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import guru.sfg.brewery.order.service.domain.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * Created by jt on 2019-01-26.
+ */
+public interface CustomerRepository extends JpaRepository<Customer, UUID> {
+    List<Customer> findAllByCustomerNameLike(String customerName);
 }

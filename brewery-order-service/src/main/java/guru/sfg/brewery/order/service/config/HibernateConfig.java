@@ -15,14 +15,24 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.order.service.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.hibernate.Interceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
+import java.util.Map;
+
+@Configuration
+public class HibernateConfig implements HibernatePropertiesCustomizer {
+
+    @Autowired
+    Interceptor orderHeaderInterceptor;
+
+    @Override
+    public void customize(Map<String, Object> hibernateProperties) {
+        hibernateProperties.put("hibernate.ejb.interceptor", orderHeaderInterceptor);
     }
+
 }

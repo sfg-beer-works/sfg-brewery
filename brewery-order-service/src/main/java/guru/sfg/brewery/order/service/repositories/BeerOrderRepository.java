@@ -14,15 +14,25 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package guru.sfg.brewery.order.service.repositories;
 
-package guru.sfg.brewery;
+import guru.sfg.brewery.order.service.domain.BeerOrder;
+import guru.sfg.brewery.order.service.domain.Customer;
+import guru.sfg.brewery.order.service.domain.OrderStatusEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.List;
+import java.util.UUID;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+
+/**
+ * Created by jt on 2019-01-26.
+ */
+public interface BeerOrderRepository  extends JpaRepository<BeerOrder, UUID> {
+
+    Page<BeerOrder> findAllByCustomer(Customer customer, Pageable pageable);
+
+    List<BeerOrder> findAllByOrderStatus(OrderStatusEnum orderStatusEnum);
 }

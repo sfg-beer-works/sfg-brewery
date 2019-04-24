@@ -15,14 +15,26 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.order.service.events;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import guru.sfg.brewery.order.service.domain.BeerOrder;
+import guru.sfg.brewery.order.service.domain.OrderStatusEnum;
+import org.springframework.context.ApplicationEvent;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
+public class BeerOrderStatusChangeEvent extends ApplicationEvent {
+
+    private final OrderStatusEnum previousStatus;
+
+    public BeerOrderStatusChangeEvent(BeerOrder source, OrderStatusEnum previousStatus) {
+        super(source);
+        this.previousStatus = previousStatus;
+    }
+
+    public OrderStatusEnum getPreviousStatus() {
+        return previousStatus;
+    }
+
+    public BeerOrder getBeerOrder(){
+        return (BeerOrder) this.source;
     }
 }

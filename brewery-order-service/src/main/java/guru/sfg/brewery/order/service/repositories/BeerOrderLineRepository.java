@@ -15,14 +15,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.order.service.repositories;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+import guru.sfg.brewery.order.service.domain.BeerOrderLine;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.UUID;
+
+public interface BeerOrderLineRepository extends PagingAndSortingRepository<BeerOrderLine, UUID> {
 }
