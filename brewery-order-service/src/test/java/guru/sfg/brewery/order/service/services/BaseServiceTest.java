@@ -80,12 +80,12 @@ public abstract class BaseServiceTest {
                 .build();
 
 //        testInventoryGalaxy = beerInventoryRepository.save(BeerInventory.builder()
-//                .beer(testBeerGalaxy)
+//                .beer_service(testBeerGalaxy)
 //                .quantityOnHand(1000)
 //                .build());
 //
 //        testInventoryJava = beerInventoryRepository.save(BeerInventory.builder()
-//                .beer(testBeerJava)
+//                .beer_service(testBeerJava)
 //                .quantityOnHand(10)
 //                .build());
 
