@@ -14,15 +14,24 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package guru.sfg.brewery.beer_service.repositories;
 
-package guru.sfg.brewery;
+import guru.sfg.brewery.beer_service.domain.Beer;
+import guru.sfg.brewery.beer_service.web.model.BeerStyleEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.UUID;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+/**
+ * Created by jt on 2019-01-26.
+ */
+public interface BeerRepository extends JpaRepository<Beer, UUID> {
+    
+    Page<Beer> findAllByBeerName(String beerName, Pageable pageable);
+
+    Page<Beer> findAllByBeerStyle(BeerStyleEnum beerStyle, Pageable pageable);
+
+    Page<Beer> findAllByBeerNameAndBeerStyle(String beerName, BeerStyleEnum beerStyle, Pageable pageable);
 }

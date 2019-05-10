@@ -15,14 +15,15 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.beer_service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
+@SpringBootTest
+class BeerServiceApplicationTest {
+
+    @Test
+    void testContextLoads() {
     }
 }

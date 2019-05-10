@@ -15,14 +15,23 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.beer_service.services;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import guru.sfg.brewery.beer_service.web.model.BeerDto;
+import guru.sfg.brewery.beer_service.web.model.BeerPagedList;
+import guru.sfg.brewery.beer_service.web.model.BeerStyleEnum;
+import org.springframework.data.domain.PageRequest;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+import java.util.UUID;
+
+public interface BeerService {
+    BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest);
+
+    BeerDto findBeerById(UUID beerId);
+
+    BeerDto saveBeer(BeerDto beerDto);
+
+    void updateBeer(UUID beerId, BeerDto beerDto);
+
+    void deleteById(UUID beerId);
 }

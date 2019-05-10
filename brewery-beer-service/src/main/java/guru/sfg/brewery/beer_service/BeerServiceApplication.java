@@ -15,14 +15,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.beer_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BreweryOrderService {
+public class BeerServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
+        SpringApplication.run(BeerServiceApplication.class, args);
     }
 }

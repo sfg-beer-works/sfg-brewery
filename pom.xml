@@ -28,9 +28,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>brewery-ui</module>
-        <module>brewery-jpa</module>
-        <module>brewery-api-model</module>
         <module>brewery-beer-service</module>
         <module>brewery-order-service</module>
     </modules>

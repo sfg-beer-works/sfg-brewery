@@ -15,14 +15,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.brewery;
+package guru.sfg.brewery.order.service.web.mappers;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class BreweryOrderService {
-    public static void main(String[] args) {
-        SpringApplication.run(BreweryOrderService.class, args);
-    }
+import guru.sfg.brewery.order.service.domain.BeerOrder;
+import guru.sfg.brewery.order.service.web.model.BeerOrderDto;
+import org.mapstruct.Mapper;
+
+@Mapper(uses = {DateMapper.class, BeerOrderLineMapper.class})
+public interface BeerOrderMapper {
+
+    BeerOrderDto beerOrderToDto(BeerOrder beerOrder);
+
+    BeerOrder dtoToBeerOrder(BeerOrderDto dto);
+
 }
