@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/sfg-beer-works/sfg-brewery.svg?style=svg)](https://circleci.com/gh/sfg-beer-works/sfg-brewery)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sfg-beer-works_sfg-beer-works&metric=alert_status)](https://sonarcloud.io/dashboard?id=sfg-beer-works_sfg-beer-works)
+[![CircleCI](https://circleci.com/gh/sfg-beer-works/sfg-brewery.svg?style=svg)](https://circleci.com/gh/sfg-beer-works/sfg-brewery)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.sfg-beer-works%3Asfg-brewery-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.sfg-beer-works%3Asfg-brewery-parent)
 # SFG Beer Works
 SFG Beer works is a Spring Framework application used to demonstrate the interaction of microservices.
 
