@@ -105,4 +105,9 @@ public class BeerServiceImpl implements BeerService {
             throw new RuntimeException("Not Found");
         });
     }
+
+    @Override
+    public void deleteById(UUID beerId) {
+        beerRepository.deleteById(beerId);
+    }
 }
