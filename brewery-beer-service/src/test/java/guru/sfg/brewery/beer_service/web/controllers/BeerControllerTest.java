@@ -45,6 +45,9 @@ class BeerControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Captor
     ArgumentCaptor<UUID> uuidArgumentCaptor;
 
@@ -199,33 +202,78 @@ class BeerControllerTest {
 
     }
 
-    @Test
-    void testSaveNewBeer() throws Exception {
-        //given
-        BeerDto beerDto = BeerDto.builder().beerName("New Beer").build();
-        BeerDto savedDto = BeerDto.builder().id(UUID.randomUUID()).beerName("New Beer").build();
-        String beerDtoJson = new ObjectMapper().writeValueAsString(beerDto);
+    @DisplayName("Save Ops - ")
+    @Nested
+    public class TestSaveOperations {
+        @Test
+        void testSaveNewBeer() throws Exception {
+            //given
+            BeerDto beerDto = validBeer;
+            beerDto.setId(null);
+            BeerDto savedDto = BeerDto.builder().id(UUID.randomUUID()).beerName("New Beer").build();
+            String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
-        given(beerService.saveBeer(any())).willReturn(savedDto);
+            given(beerService.saveBeer(any())).willReturn(savedDto);
 
-        mockMvc.perform(post("/api/v1/beer/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(beerDtoJson))
-                .andExpect(status().isCreated());
+            mockMvc.perform(post("/api/v1/beer/")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(beerDtoJson))
+                    .andExpect(status().isCreated());
+        }
+
+        @Test
+        void testSaveNewBeerBadRequest() throws Exception {
+            //given
+            BeerDto beerDto = validBeer;
+            beerDto.setId(null);
+            beerDto.setBeerName(null);
+            BeerDto savedDto = BeerDto.builder().id(UUID.randomUUID()).beerName("New Beer").build();
+            String beerDtoJson = objectMapper.writeValueAsString(beerDto);
+
+            given(beerService.saveBeer(any())).willReturn(savedDto);
+
+            mockMvc.perform(post("/api/v1/beer/")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(beerDtoJson))
+                    .andExpect(status().isBadRequest());
+
+            then(beerService).shouldHaveZeroInteractions();
+        }
     }
 
-    @Test
-    void testUpdateBeer() throws Exception {
-        //given
-        BeerDto beerDto = BeerDto.builder().beerName("New Beer").build();
-        String beerDtoJson = new ObjectMapper().writeValueAsString(beerDto);
+    @DisplayName("Save Ops - ")
+    @Nested
+    public class TestUpdateOperations {
 
-        //when
-        mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(beerDtoJson))
-                .andExpect(status().isNoContent());
+        @Test
+        void testUpdateBeer() throws Exception {
+            //given
+            BeerDto beerDto = validBeer;
+            String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
-        then(beerService).should().updateBeer(any(), any());
+            //when
+            mockMvc.perform(put("/api/v1/beer/" + validBeer.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(beerDtoJson))
+                    .andExpect(status().isNoContent());
+
+            then(beerService).should().updateBeer(any(), any());
+        }
+
+        @Test
+        void testUpdateBeerBadRequest() throws Exception {
+            //given
+            BeerDto beerDto = validBeer;
+            beerDto.setUpc(null);
+            String beerDtoJson = objectMapper.writeValueAsString(beerDto);
+
+            //when
+            mockMvc.perform(put("/api/v1/beer/" + validBeer.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(beerDtoJson))
+                    .andExpect(status().isBadRequest());
+
+            then(beerService).shouldHaveZeroInteractions();
+        }
     }
 }
