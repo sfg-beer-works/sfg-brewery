@@ -25,8 +25,10 @@ import guru.sfg.brewery.beer_service.web.model.BeerPagedList;
 import guru.sfg.brewery.beer_service.web.model.BeerStyleEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -81,8 +83,7 @@ public class BeerServiceImpl implements BeerService {
         if (beerOptional.isPresent()) {
             return beerMapper.beerToBeerDto(beerOptional.get());
         } else {
-            //todo add error handling
-            throw new RuntimeException("Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found. UUID: " + beerId);
         }
     }
 
@@ -102,7 +103,12 @@ public class BeerServiceImpl implements BeerService {
             beer.setUpc(beerDto.getUpc());
             beerRepository.save(beer);
         }, () -> {
-            throw new RuntimeException("Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found. UUID: " + beerId);
         });
+    }
+
+    @Override
+    public void deleteById(UUID beerId) {
+        beerRepository.deleteById(beerId);
     }
 }

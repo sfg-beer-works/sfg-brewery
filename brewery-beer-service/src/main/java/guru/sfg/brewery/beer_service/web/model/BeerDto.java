@@ -24,6 +24,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -34,10 +37,7 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
-    @JsonProperty("id")
     private UUID id = null;
-
-    @JsonProperty("version")
     private Integer version = null;
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
@@ -45,14 +45,21 @@ public class BeerDto {
     private OffsetDateTime createdDate = null;
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
-    @JsonProperty("lastModifiedDate")
     private OffsetDateTime lastModifiedDate = null;
 
+    @NotBlank
     private String beerName;
+
+    @NotNull
     private BeerStyleEnum beerStyle;
+
+    @Positive
+    @NotNull
     private Long upc;
+
     private Integer quantityOnHand;
 
+    @NotNull
     @JsonFormat(shape= JsonFormat.Shape.STRING)
     private BigDecimal price;
 

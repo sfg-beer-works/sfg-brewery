@@ -29,7 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -73,22 +75,19 @@ public class BeerOrderServiceImpl implements BeerOrderService {
 
     @Override
     public BeerOrderDto placeOrder(UUID customerId, BeerOrderDto beerOrderDto) {
-        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer Not Found. UUID: " + customerId));
 
-        if (customerOptional.isPresent()) {
-            BeerOrder beerOrder = beerOrderMapper.dtoToBeerOrder(beerOrderDto);
-            beerOrder.setId(null); //should not be set by outside client
-            beerOrder.setCustomer(customerOptional.get());
-            beerOrder.setOrderStatus(OrderStatusEnum.NEW);
+        BeerOrder beerOrder = beerOrderMapper.dtoToBeerOrder(beerOrderDto);
+        beerOrder.setId(null); //should not be set by outside client
+        beerOrder.setCustomer(customer);
+        beerOrder.setOrderStatus(OrderStatusEnum.NEW);
 
-            BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
+        BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
 
-            log.debug("Saved Beer Order: " + beerOrder.getId());
+        log.debug("Saved Beer Order: " + beerOrder.getId());
 
-            return beerOrderMapper.beerOrderToDto(savedBeerOrder);
-        }
-        //todo add exception type
-        throw new RuntimeException("Customer Not Found");
+        return beerOrderMapper.beerOrderToDto(savedBeerOrder);
     }
 
     @Override
@@ -104,22 +103,20 @@ public class BeerOrderServiceImpl implements BeerOrderService {
         beerOrderRepository.save(beerOrder);
     }
 
-    private BeerOrder getOrder(UUID customerId, UUID orderId){
-        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+    private BeerOrder getOrder(UUID customerId, UUID orderId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Customer Not Found. UUID: " + customerId));
 
-        if(customerOptional.isPresent()){
-            Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(orderId);
+        BeerOrder beerOrder = beerOrderRepository
+                .findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "BeerOrder Not Found. UUID: " + orderId));
 
-            if(beerOrderOptional.isPresent()){
-                BeerOrder beerOrder = beerOrderOptional.get();
-
-                // fall to exception if customer id's do not match - order not for customer
-                if(beerOrder.getCustomer().getId().equals(customerId)){
-                    return beerOrder;
-                }
-            }
-            throw new RuntimeException("Beer Order Not Found");
+        // fall to exception if customer id's do not match - order not for customer
+        if (beerOrder.getCustomer().equals(customer)) {
+            return beerOrder;
+        } else {
+            throw new RuntimeException("Customer Not Found");
         }
-        throw new RuntimeException("Customer Not Found");
     }
 }
