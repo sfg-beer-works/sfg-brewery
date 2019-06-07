@@ -1,6 +1,7 @@
 package guru.sfg.brewery.beer_service.web.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.sfg.brewery.beer_service.bootstrap.DefaultBreweryLoader;
 import guru.sfg.brewery.beer_service.services.BeerService;
 import guru.sfg.brewery.beer_service.web.model.BeerDto;
 import guru.sfg.brewery.beer_service.web.model.BeerPagedList;
@@ -61,7 +62,7 @@ class BeerControllerTest {
                 .beerStyle(BeerStyleEnum.PALE_ALE)
                 .price(new BigDecimal("12.99"))
                 .quantityOnHand(4)
-                .upc(123456789012L)
+                .upc(DefaultBreweryLoader.BEER_1_UPC)
                 .createdDate(OffsetDateTime.now())
                 .lastModifiedDate(OffsetDateTime.now())
                 .build();
@@ -94,7 +95,7 @@ class BeerControllerTest {
             beers.add(BeerDto.builder().id(UUID.randomUUID())
                     .version(1)
                     .beerName("Beer4")
-                    .upc(123123123122L)
+                    .upc(DefaultBreweryLoader.BEER_2_UPC)
                     .beerStyle(BeerStyleEnum.PALE_ALE)
                     .price(new BigDecimal("12.99"))
                     .quantityOnHand(66)

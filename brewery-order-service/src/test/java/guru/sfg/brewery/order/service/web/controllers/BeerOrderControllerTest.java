@@ -106,8 +106,8 @@ class BeerOrderControllerTest {
     void listOrders() throws Exception {
         //given
         List<BeerOrderDto> orderDtos = new ArrayList<>();
-        orderDtos.add(BeerOrderDto.builder().build());
-        orderDtos.add(BeerOrderDto.builder().build());
+        orderDtos.add(BeerOrderDto.builder().customerId(UUID.randomUUID()).build());
+        orderDtos.add(BeerOrderDto.builder().customerId(UUID.randomUUID()).build());
         given(beerOrderService.listOrders(any(), any(Pageable.class)))
                 .willReturn(new BeerOrderPagedList(orderDtos, PageRequest.of(1, 1), 2L));
 
@@ -167,6 +167,7 @@ class BeerOrderControllerTest {
         List<BeerOrderLineDto> orderLines = Arrays.asList(BeerOrderLineDto.builder()
                 .id(UUID.randomUUID())
                 .beerId(beerId)
+                .upc("123")
                 .orderQuantity(5)
                 .build());
 
@@ -209,8 +210,10 @@ class BeerOrderControllerTest {
                                     .description("Customer Reference"),
                             fieldWithPath("beerOrderLines[].orderQuantity")
                                     .description("Customer Reference"),
+                                fieldWithPath("beerOrderLines[].upc")
+                                        .description("UPC"),
                             fieldWithPath("beerOrderLines[].id")
-                                    .description("Customer Reference"))));
+                                    .description("Order Lines"))));
     }
 
     @Test
