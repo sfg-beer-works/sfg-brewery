@@ -106,8 +106,8 @@ class BeerOrderControllerTest {
     void listOrders() throws Exception {
         //given
         List<BeerOrderDto> orderDtos = new ArrayList<>();
-        orderDtos.add(BeerOrderDto.builder().customerId(UUID.randomUUID()).build());
-        orderDtos.add(BeerOrderDto.builder().customerId(UUID.randomUUID()).build());
+        orderDtos.add(buildOrderDto());
+        orderDtos.add(buildOrderDto());
         given(beerOrderService.listOrders(any(), any(Pageable.class)))
                 .willReturn(new BeerOrderPagedList(orderDtos, PageRequest.of(1, 1), 2L));
 
@@ -152,7 +152,6 @@ class BeerOrderControllerTest {
         then(beerOrderService).should().placeOrder(any(UUID.class), any(BeerOrderDto.class));
 
         assertThat(customerUUIDCaptor.getValue()).isEqualTo(customerId);
-        assertThat(beerOrderDtoArgumentCaptorCaptor.getValue().getBeerOrderLines().get(0).getBeerId()).isEqualTo(beerId);
     }
 
     private BeerOrderDto getBeerOrderDtoResponse() {
@@ -160,6 +159,16 @@ class BeerOrderControllerTest {
         orderResponseDto.setCustomerId(customerId);
         orderResponseDto.setId(orderId);
         orderResponseDto.setOrderStatus(OrderStatusEnum.NEW);
+
+        BeerOrderLineDto beerOrderLine = BeerOrderLineDto.builder()
+                .id(UUID.randomUUID())
+                .beerId(beerId)
+                .upc(12312312345L)
+                .orderQuantity(5)
+                .build();
+
+        orderResponseDto.setBeerOrderLines(Arrays.asList(beerOrderLine));
+
         return orderResponseDto;
     }
 
@@ -199,15 +208,15 @@ class BeerOrderControllerTest {
                             fieldWithPath("customerRef")
                                     .description("Customer Reference"),
                                 fieldWithPath("id")
-                                        .description("Customer Reference"),
+                                        .description("Id"),
                             fieldWithPath("orderStatus")
-                                    .description("Customer Reference"),
+                                    .description("Order Status"),
                             fieldWithPath("orderStatusCallbackUrl")
-                                    .description("Customer Reference"),
+                                    .description("Call Back URL"),
                             fieldWithPath("beerOrderLines")
-                                        .description("Customer Reference"),
+                                        .description("Order Lines"),
                             fieldWithPath("beerOrderLines[].beerId")
-                                    .description("Customer Reference"),
+                                    .description("Beer Id"),
                             fieldWithPath("beerOrderLines[].orderQuantity")
                                     .description("Customer Reference"),
                                 fieldWithPath("beerOrderLines[].upc")
