@@ -56,15 +56,12 @@ class BeerControllerTest {
 
     @BeforeEach
     void setUp() {
-        validBeer = BeerDto.builder().id(UUID.randomUUID())
-                .version(1)
+        validBeer = BeerDto.builder()
                 .beerName("Beer1")
                 .beerStyle(BeerStyleEnum.PALE_ALE)
                 .price(new BigDecimal("12.99"))
                 .quantityOnHand(4)
                 .upc(DefaultBreweryLoader.BEER_1_UPC)
-                .createdDate(OffsetDateTime.now())
-                .lastModifiedDate(OffsetDateTime.now())
                 .build();
     }
 
@@ -253,7 +250,7 @@ class BeerControllerTest {
             String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
             //when
-            mockMvc.perform(put("/api/v1/beer/" + validBeer.getId())
+            mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(beerDtoJson))
                     .andExpect(status().isNoContent());
